@@ -1,0 +1,107 @@
+﻿@model WebsiteThietBiDienTu.Models.Sanpham
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="modal-body">
+    <div class="row">
+        <div class="col-3">
+
+
+            <!-- End Product slider -->
+        </div>
+        <div class="col-3">
+
+            <img src="/images/products/@Html.DisplayFor(model => model.HinhAnh)" />
+        </div>
+        <div class="col-6">
+            <div class="quickview-content">
+                <h2>@Html.DisplayFor(model => model.Ten)</h2>
+
+                <div>Luot mua: @Html.DisplayFor(model => model.LuotMua)</div>
+                <div>Luot xem: @Html.DisplayFor(model => model.LuotXem)</div>
+                <div>Số lượng còn lại: @Html.DisplayFor(model => model.SoLuong)</div>
+
+                <div class="quickview-stock">
+                    <span><i class="fa fa-check-circle-o"></i> in stock</span>
+                </div>
+                <h3>@Html.DisplayFor(model => model.GiaBan)</h3>
+                <div class="quickview-peragraph">
+                    <p>@Html.DisplayFor(model => model.MoTa)</p>
+                </div>
+
+                <div class="add-to-cart">
+                    <a href="#" class="btn">Add to cart</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<h3 class="text-center">SAN PHAM CO LIEN QUAN</h3>
+<div class="row">
+    <div class="col-12">
+        <div class="product-info">
+            <div class="tab-content" id="myTabContent">
+                <!-- Start Single Tab -->
+                <div class="tab-pane fade show active" id="man" role="tabpanel">
+                    <div class="tab-single">
+
+                        <div class="row">
+                            @foreach (var item in ViewBag.sanphamcolienquan)
+                            {
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
+                                                @if (item.GiaBan != item.GiaGoc)
+                                                {
+                                                    <span class="price-dec">Giam gia</span>
+
+                                                }
+                                                <img class="card-img-top" src="/images/products/@item.HinhAnh" alt="#">
+                                            </a>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3><a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">@item.Ten</a></h3>
+                                            <div class="product-price">
+
+                                                @if (item.GiaBan != item.GiaGoc)
+                                                {
+
+                                                    <span class="text-muted text-decoration-line-through">@item.GiaGoc VND</span>
+                                                    <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Gia: </span>
+                                                    <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center"><a class="btn btn-outline-info mt-auto" asp-action="AddToCart" asp-route-id="@item.MaMh">Chọn mua</a></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                <!--/ End Single Tab -->
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
