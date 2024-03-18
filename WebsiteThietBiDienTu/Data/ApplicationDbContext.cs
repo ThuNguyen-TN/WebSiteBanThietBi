@@ -19,5 +19,6 @@ namespace WebsiteThietBiDienTu.Data
         public DbSet<WebsiteThietBiDienTu.Models.Hoadon> Hoadon { get; set; }
         public DbSet<WebsiteThietBiDienTu.Models.Cthoadon> Cthoadon { get; set; }
         public DbSet<WebsiteThietBiDienTu.Models.Nhanvien> Nhanvien { get; set; }
+        public DbSet<WebsiteThietBiDienTu.Models.Diachi> Diachi { get; set; }
     }
 }

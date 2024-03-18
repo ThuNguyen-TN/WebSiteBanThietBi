@@ -228,6 +228,135 @@ namespace WebsiteThietBiDienTu.Controllers
             //khong ton tai khach hang chuyen ve login
             return RedirectToAction(nameof(Login));
         }
+        public IActionResult Logout()
+        {
+            GetInfo();
+            if (HttpContext.Session.GetString("khachhang") != null)
+            {
+                HttpContext.Session.SetString("khachhang", " ");
+            }
+            else
+            {
+                HttpContext.Session.SetString("nhanvien", " ");
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult CheckOut()
+        {
+            if (HttpContext.Session.GetString("khachhang") == "" || HttpContext.Session.GetString("khachhang") == null)
+            {
+                GetInfo();
+                return View(GetCartItems());
+
+            }
+            else
+            {
+                int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
+                List<Diachi> lstDiaChi = _context.Diachi.Where(d => d.MaKh==makh).ToList();
+                ViewBag.diachi = lstDiaChi;
+                GetInfo();
+                return View(GetCartItems());
+            }
+        }
+        public async Task<IActionResult> CreateBill(int id, string hoten, string email, string sodienthoai,string diachi,string phuongxa, string huyen, string tinh)
+        {
+            GetInfo();
+            //Xử lý thông tin khách hàng(khách mới)
+            var kh = new Khachhang();
+           
+            if (id != 0)
+            {
+                kh.MaKh = id;
+            }
+            else
+            {
+                kh.Ten = hoten;
+                kh.Email = email;
+                kh.DienThoai = sodienthoai;     
+                _context.Add(kh);
+                await _context.SaveChangesAsync();
+
+                var dc = new Diachi();
+                dc.MaKh = kh.MaKh;
+                dc.DiaChi1 = diachi;
+                dc.PhuongXa = phuongxa;
+                dc.QuanHuyen = huyen;
+                dc.TinhThanh = tinh;
+                _context.Add(dc);
+                await _context.SaveChangesAsync();
+            }
+
+            //Hóa đơn
+            var hd = new Hoadon();
+            hd.Ngay = DateTime.Now;
+            hd.MaKh = kh.MaKh;
+            _context.Add(hd);
+            await _context.SaveChangesAsync();
+
+            //thêm chi tiết hóa đơn
+            var cart = GetCartItems();
+
+            int thanhtien = 0;
+            int tongtien = 0;
+            foreach (var i in cart)
+            {
+                var ct = new Cthoadon();
+                ct.MaHd = hd.MaHd;
+                ct.MaMh = i.SanPham.MaMh;
+                thanhtien = i.SanPham.GiaBan * i.SoLuong;
+                tongtien += thanhtien;
+                ct.DonGia = i.SanPham.GiaBan;
+                ct.SoLuong = (short)i.SoLuong;
+                ct.ThanhTien = thanhtien;
+                _context.Add(ct);
+            }
+            await _context.SaveChangesAsync();
+
+            //cập nhật tổng tiền hóa đơn
+            hd.TongTien = tongtien;
+            _context.Update(hd);
+            await _context.SaveChangesAsync();
+
+            //xóa giỏ hàng
+            ClearCart();
+            GetInfo();
+            return View(hd);
+        }
+        public IActionResult Customer()
+        {
+            int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
+            var lstDiaChi = _context.Diachi.Where(d => d.MaKh == makh);
+            GetInfo();
+            return View(lstDiaChi);
+        }
+        public async Task<IActionResult> EditCustomer()
+        {
+            GetInfo();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditCustomer(int id, string email, string matkhau, string hoten, string sodienthoai)
+        {
+            var kt = _context.Khachhang.FirstOrDefault(k => k.Email == email && k.MaKh != id && k.MatKhau != null);
+            if (kt != null)
+            {
+                GetInfo();
+                return RedirectToAction(nameof(EditCustomer));
+            }
+            var kh = _context.Khachhang.FirstOrDefault(kh => kh.MaKh == id);
+            kh.Ten = hoten;
+            kh.Email = email;
+            kh.DienThoai = sodienthoai;
+            if (matkhau != null)
+            {
+                kh.MatKhau = _passwordHasher.HashPassword(kh, matkhau);
+            }
+            _context.Update(kh);
+            await _context.SaveChangesAsync();
+
+            GetInfo();
+            return RedirectToAction(nameof(Customer));
+        }
 
     }
 }

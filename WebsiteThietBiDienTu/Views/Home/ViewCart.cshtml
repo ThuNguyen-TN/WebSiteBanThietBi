@@ -51,7 +51,7 @@
                                         <!--/ End Input Order -->
                                     </td>
                                     <td class="total-amount" data-title="Total"><span>@thanhtien</span></td>
-                                    <td><a asp-action="RemoveItem" asp-route-id="@i.SanPham.MaMh" class="btn">Xóa</a></td>
+                                    <td><a asp-action="RemoveItem" asp-route-id="@i.SanPham.MaMh" class="btn text-white">Xóa</a></td>
                                 </tr>
                             }
                             <tr>
@@ -77,9 +77,12 @@
                             </div>
                             <div class="col-lg-4 col-md-7 col-12">
                                 <div class="right">
-                                    <div class="button5">
-                                        <a href="#" class="btn">Thanh toán</a>
-                                        <a href="#" class="btn">Tiếp tục mua hàng</a>
+                                    <div class="btn text-white">
+                                        <a asp-action="CheckOut">Thanh toán</a>
+                                     
+                                    </div>
+                                    <div class="btn text-white">                                     
+                                        <a asp-action="Index">Tiếp tục mua hàng</a>
                                     </div>
                                 </div>
                             </div>

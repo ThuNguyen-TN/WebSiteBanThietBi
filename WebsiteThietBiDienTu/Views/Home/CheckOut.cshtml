@@ -1,0 +1,137 @@
+﻿@model List<WebsiteThietBiDienTu.Models.CartItem>
+
+<h3 class="text-info">Vui lòng kiểm tra thông tin khi lập hóa đơn</h3>
+<div class="row">
+    <h3>Thông tin khách hàng</h3>
+    <div class="col-md-6">
+        @if (ViewBag.khachhang != null)
+        {
+            <form asp-action="CreateBill">
+                <div class="my-3">
+                    <input type="hidden" name="id" value="@ViewBag.khachhang.MaKh" />
+                    <label>Họ tên</label>
+                    <input type="text" value="@ViewBag.khachhang.Ten" name="hoten" class="form-control" disabled />
+                </div>
+                <div class="my-3">
+                    <label>Email</label>
+                    <input type="email" value="@ViewBag.khachhang.Email" readonly="true" name="email" class="form-control" disabled />
+                </div>
+                <div class="my-3">
+                    <label>Số điện thoại</label>
+                    <input type="text" name="sodienthoai" value="@ViewBag.khachhang.DienThoai" class="form-control" disabled />
+                </div>
+                <div class="my-3">
+                    <label>Địa chỉ</label> <br />
+                    @{
+                        foreach (Diachi dc in ViewBag.diachi)
+                        {
+                            string tmp = dc.DiaChi1 + ", " + dc.DiaChi1 + ", " + dc.QuanHuyen + ", " + dc.TinhThanh;
+                            if (dc.MacDinh == 1)
+                            {
+                                <input type="radio" id="@dc.MaDc" name="madiachi" value="@dc.MaDc" checked="true">
+                                <label for="@dc.MaDc">@tmp (Mặc định)</label><br>
+                            }
+                            else
+                            {
+                                <input type="radio" id="@dc.MaDc" name="madiachi" value="@dc.MaDc">
+                                <label for="@dc.MaDc">@tmp</label><br>
+                            }
+                        }
+                    }
+                </div>
+                <div class="my-3">
+                    <input type="submit" value="Lưu đơn hàng" asp-action="CreateBill" class="btn btn-info" />
+                </div>
+            </form>
+        }
+        else
+        {
+    <form asp-action="CreateBill">
+        <div class="my-3">
+            <label>Họ tên</label>
+            <input type="text" name="hoten" class="form-control" />
+        </div>
+        <div class="my-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" />
+        </div>
+        <div class="my-3">
+            <label>Số điện thoại</label>
+            <input type="text" name="sodienthoai" class="form-control" />
+        </div>
+        <div class="my-3">
+            <label>Địa chỉ</label>
+            <input type="text" name="diachi" class="form-control" />
+        </div>
+        <div class="my-3">
+            <label>Phường Xã</label>
+            <input type="text" name="phuongxa" class="form-control" />
+        </div>
+        <div class="my-3">
+            <label>Quận Huyện</label>
+            <input type="text" name="huyen" class="form-control" />
+        </div>
+        <div class="my-3">
+            <label>Tỉnh Thành</label>
+            <input type="text" name="tinh" class="form-control" />
+        </div>
+        <div class="my-3">
+            <input type="submit" value="Lưu đơn hàng" asp-action="CreateBill" class="btn btn-info" />
+        </div>
+    </form>
+        }
+
+
+
+    </div>
+
+    <div class="col-md-6">
+        @if (Model.Count > 0)
+        {
+            int stt = 1;
+            int thanhtien = 0;
+            int tongtien = 0;
+            <table class="table">
+                <tr>
+                    <th>STT</th>
+                    <th>San Pham</th>
+                    <th>Gia</th>
+                    <th>So Luong</th>
+                    <th></th>
+                    <th>Tổng tiền</th>
+                </tr>
+                @foreach (var i in Model)
+                {
+                    thanhtien = i.SanPham.GiaBan * i.SoLuong;
+                    tongtien += thanhtien;
+                    <tr class="align-middle">
+                        <td>@(stt++)</td>
+                        <td>
+                            <img src="~/images/products/@(i.SanPham.HinhAnh)" class="img-thumbnail" width="50" />
+                            @(i.SanPham.Ten)
+                        </td>
+                        <td>
+                            @(i.SanPham.GiaBan.ToString("n0"))VND
+                        </td>
+
+                        <td>
+                            @(i.SoLuong)
+                        </td>
+                        <td>@(thanhtien.ToString("n0"))đ</td>
+
+                    </tr>
+                }
+                <tr>
+                    <td colspan="5" class="text-end">
+                        Thanh tien
+                    </td>
+                    <td class="text-danger fw-bold">
+                        @tongtien.ToString("n0")VND
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>
+
+

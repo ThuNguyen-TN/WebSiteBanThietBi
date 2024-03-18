@@ -194,3 +194,11 @@ D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Nhanviens\Edit.cshtml.g.cs
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Nhanviens\Index.cshtml.g.cs
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\CategoryName.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Diachis\Create.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Diachis\Delete.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Diachis\Details.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Diachis\Edit.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Diachis\Index.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\CheckOut.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\CreateBill.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\Customer.cshtml.g.cs
