@@ -202,3 +202,6 @@ D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\CheckOut.cshtml.g.cs
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\CreateBill.cshtml.g.cs
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\Customer.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\EditCustomer.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Pager.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\OutOfStock.cshtml.g.cs

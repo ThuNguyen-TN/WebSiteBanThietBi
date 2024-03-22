@@ -20,7 +20,7 @@ namespace WebsiteThietBiDienTu.Models
         [Column("MaMH")]
         public int MaMh { get; set; }
         public int? DonGia { get; set; }
-        public short? SoLuong { get; set; }
+        public short SoLuong { get; set; }
         public int? ThanhTien { get; set; }
 
         [ForeignKey(nameof(MaHd))]

@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "HomePage";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 }
 
 
@@ -19,17 +26,7 @@
             <div class="col-12">
                 <div class="product-info">
                     <div class="nav-main">
-                        <!-- Tab Nav -->
-                        @*<ul class="nav nav-tabs" id="myTab" role="tablist">
-                            @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
-                            {
-
-                            <li class="nav-item"><a asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>
-    
-                           
-                            }
-                        </ul>*@
-                        <!--/ End Tab Nav -->
+                        
                     </div>
                     <div class="tab-content" id="myTabContent">
                         <!-- Start Single Tab -->
@@ -44,6 +41,7 @@
                                             <div class="single-product">
                                                 <div class="product-img">
                                                     <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
+                                                        
                                                         @if (item.GiaBan != item.GiaGoc)
                                                         {
                                                             <span class="price-dec">Giam gia</span>
@@ -90,6 +88,7 @@
         </div>
     </div>
 </div>
+<partial name="_pager" model="@pager" />
 <!-- End Product Area -->
 <!-- Start Most Popular -->
 <div class="product-area most-popular section">

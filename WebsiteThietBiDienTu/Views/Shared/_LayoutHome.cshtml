@@ -75,7 +75,7 @@
                                 {
                                     <li>
                                         <i class="ti-power-off"></i>
-                                        <a>Welcome @ViewBag.khachhang.Ten to website of us</a>
+                                        <a asp-action="Customer">Welcome @ViewBag.khachhang.Ten to website of us</a>
                                     </li>
                                 }
                                 else
@@ -142,7 +142,7 @@
                                 <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
                             </div>
                             <div class="sinlge-bar shopping">
-                                <a asp-action="ViewCart" class="single-icon"><i class="ti-bag"></i><span class="total-count">@ViewData["soluong"]</span>Gio Hang</a>
+                                <a asp-action="ViewCart" class="single-icon"><i class="ti-bag"></i><span class="total-count">@ViewData["soluong"]</span>Gio Hang </a>
                                 <!-- Shopping Item -->
                                 @*<div class="shopping-item">
                                         <a asp-action="ViewCart">

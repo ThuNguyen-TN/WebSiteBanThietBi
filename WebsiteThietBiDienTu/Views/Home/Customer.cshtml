@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<WebsiteThietBiDienTu.Models.Diachi>;
 @{ ViewData["Title"] = "Thông tin tài khoản"; }
-
 <div class="d-flex justify-content-between mb-3">
     <div><h2>Thông tin tài khoản</h2></div>
     <div><a class="btn btn-outline-info" asp-action="DonHangChuaDuyet">Lịch sử đặt hàng</a></div>
 </div>
-<div>
+
+<div class="col-2"></div>
+<div class="col-8 justify-content-center align-items-center">
     <dl class="row">
         <dt class="col-sm-2">
             Tên người dùng
@@ -25,6 +26,9 @@
         <dd class="col-sm-10">
             @ViewBag.khachhang.Email
         </dd>
+        <dt class="col-sm-2">
+            Địa chỉ
+        </dt>
         <dd class="col-sm-10">
             <table class="table">
                 <thead>
@@ -65,8 +69,9 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a class="btn btn-block btn-success float-left" asp-action="EditCustomer">Chỉnh sửa thông tin</a>
-    <a class="btn btn-block btn-danger float-right" asp-action="Logout">Đăng xuất <i class="bi bi-box-arrow-right"></i></a>
+<div class="col-2 justify-content-center align-items-center">
+    <a class="btn text-white" asp-action="EditCustomer">Chỉnh sửa thông tin</a>
+    <a class="btn text-white" asp-action="AddAddress">Thêm địa chỉ</a>
+    <a class="btn text-white" asp-action="Logout">Đăng xuất <i class="bi bi-box-arrow-right"></i></a>
 </div>
-
+<div class="col-2"></div>

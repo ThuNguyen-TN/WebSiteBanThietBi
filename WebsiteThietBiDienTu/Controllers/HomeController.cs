@@ -28,6 +28,7 @@ namespace WebsiteThietBiDienTu.Controllers
         public void GetInfo()
         {
             ViewData["soluong"] = GetCartItems().Count();
+            
 
             ViewBag.danhmuc = _context.Danhmuc.ToList();
 
@@ -43,11 +44,26 @@ namespace WebsiteThietBiDienTu.Controllers
 
         }
         // GET: Home
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg = 1)
         {
             GetInfo();
             var applicationDbContext = _context.Sanpham.Include(s => s.MaDmNavigation);
-            return View(await applicationDbContext.ToListAsync());
+
+
+            const int pageSize = 5;
+            if (pg < 1)
+                pg = 1;
+
+            int resCount = applicationDbContext.Count();
+            var pager = new Pager(resCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = applicationDbContext.Skip(recSkip).Take(pager.PageSize).ToList();
+
+            this.ViewBag.Pager = pager;
+
+
+            return View(data);
+
         }
 
         // GET: Home/Details/5
@@ -66,6 +82,17 @@ namespace WebsiteThietBiDienTu.Controllers
             {
                 return NotFound();
             }
+            var product = _context.Sanpham.Find(id);
+            if (product != null)
+            {
+                product.LuotXem++;
+                _context.SaveChanges();
+            }
+            if (product.SoLuong == 0)
+            {
+                return RedirectToAction("OutOfStock");
+            }
+
             ViewBag.sanphamcolienquan = _context.Sanpham.Where(m => m.MaMh != id).Include(s => s.MaDmNavigation);
             return View(sanpham);
         }
@@ -157,7 +184,16 @@ namespace WebsiteThietBiDienTu.Controllers
             var item = cart.Find(p => p.SanPham.MaMh == id);
             if (item != null)
             {
-                item.SoLuong = quantity;
+                if(quantity <= item.SanPham.SoLuong)
+                {
+                    item.SoLuong = quantity;
+                    
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Sn pham nay chi con lai" + item.SanPham.SoLuong+ "sna pham.Vui long lua chon san pham khac";
+                    
+                }
             }
             SaveCartSession(cart);
             return RedirectToAction(nameof(ViewCart));
@@ -252,31 +288,36 @@ namespace WebsiteThietBiDienTu.Controllers
             else
             {
                 int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
-                List<Diachi> lstDiaChi = _context.Diachi.Where(d => d.MaKh==makh).ToList();
+                List<Diachi> lstDiaChi = _context.Diachi.Where(d => d.MaKh == makh).ToList();
                 ViewBag.diachi = lstDiaChi;
                 GetInfo();
                 return View(GetCartItems());
             }
         }
-        public async Task<IActionResult> CreateBill(int id, string hoten, string email, string sodienthoai,string diachi,string phuongxa, string huyen, string tinh)
+        public async Task<IActionResult> CreateBill(int id, string hoten, string email, string sodienthoai, string diachi, string phuongxa, string huyen, string tinh, int madiachi)
         {
             GetInfo();
             //Xử lý thông tin khách hàng(khách mới)
-            var kh = new Khachhang();
-           
+            Khachhang kh;
+            Diachi dc;
+
             if (id != 0)
             {
-                kh.MaKh = id;
+
+                kh = _context.Khachhang.FirstOrDefault(k => k.MaKh == id);
+                dc = _context.Diachi.FirstOrDefault(d => d.MaDc == madiachi);
             }
             else
             {
+
+                kh = new Khachhang();
                 kh.Ten = hoten;
                 kh.Email = email;
-                kh.DienThoai = sodienthoai;     
+                kh.DienThoai = sodienthoai;
                 _context.Add(kh);
                 await _context.SaveChangesAsync();
 
-                var dc = new Diachi();
+                dc = new Diachi();
                 dc.MaKh = kh.MaKh;
                 dc.DiaChi1 = diachi;
                 dc.PhuongXa = phuongxa;
@@ -284,12 +325,14 @@ namespace WebsiteThietBiDienTu.Controllers
                 dc.TinhThanh = tinh;
                 _context.Add(dc);
                 await _context.SaveChangesAsync();
+
             }
 
             //Hóa đơn
             var hd = new Hoadon();
             hd.Ngay = DateTime.Now;
             hd.MaKh = kh.MaKh;
+            hd.MaDc = dc.MaDc;
             _context.Add(hd);
             await _context.SaveChangesAsync();
 
@@ -300,6 +343,7 @@ namespace WebsiteThietBiDienTu.Controllers
             int tongtien = 0;
             foreach (var i in cart)
             {
+
                 var ct = new Cthoadon();
                 ct.MaHd = hd.MaHd;
                 ct.MaMh = i.SanPham.MaMh;
@@ -309,8 +353,14 @@ namespace WebsiteThietBiDienTu.Controllers
                 ct.SoLuong = (short)i.SoLuong;
                 ct.ThanhTien = thanhtien;
                 _context.Add(ct);
+
+                var product = _context.Sanpham.Find(i.SanPham.MaMh);
+                product.SoLuong -= (short)i.SoLuong;
+                product.LuotMua++;
+
             }
             await _context.SaveChangesAsync();
+
 
             //cập nhật tổng tiền hóa đơn
             hd.TongTien = tongtien;
@@ -320,6 +370,9 @@ namespace WebsiteThietBiDienTu.Controllers
             //xóa giỏ hàng
             ClearCart();
             GetInfo();
+
+
+
             return View(hd);
         }
         public IActionResult Customer()
@@ -356,6 +409,11 @@ namespace WebsiteThietBiDienTu.Controllers
 
             GetInfo();
             return RedirectToAction(nameof(Customer));
+        }
+        public IActionResult OutOfStock()
+        {
+            GetInfo();
+            return View();
         }
 
     }
