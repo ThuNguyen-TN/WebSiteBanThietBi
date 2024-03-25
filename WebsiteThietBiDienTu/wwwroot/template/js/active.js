@@ -86,7 +86,7 @@ Version:1.0
 		$('.home-slider').owlCarousel({
 			items:1,
 			autoplay:true,
-			autoplayTimeout:5000,
+			autoplayTimeout:0,
 			smartSpeed: 400,
 			animateIn: 'fadeIn',
 			animateOut: 'fadeOut',
@@ -121,7 +121,7 @@ Version:1.0
 		$('.popular-slider').owlCarousel({
 			items:1,
 			autoplay:true,
-			autoplayTimeout:5000,
+			autoplayTimeout:0,
 			smartSpeed: 400,
 			animateIn: 'fadeIn',
 			animateOut: 'fadeOut',
@@ -156,7 +156,7 @@ Version:1.0
 		$('.quickview-slider-active').owlCarousel({
 			items:1,
 			autoplay:true,
-			autoplayTimeout:5000,
+			autoplayTimeout:0,
 			smartSpeed: 400,
 			autoplayHoverPause:true,
 			nav:true,
@@ -172,7 +172,7 @@ Version:1.0
 		$('.home-slider-4').owlCarousel({
 			items:1,
 			autoplay:true,
-			autoplayTimeout:5000,
+			autoplayTimeout:0,
 			smartSpeed: 400,
 			autoplayHoverPause:true,
 			nav:true,
@@ -315,10 +315,10 @@ Version:1.0
 	  Preloader JS
 	======================================*/ 	
 	//After 2s preloader is fadeOut
-	$('.preloader').delay(2000).fadeOut('slow');
+	$('.preloader').delay(0).fadeOut('slow');
 	setTimeout(function() {
 	//After 2s, the no-scroll class of the body will be removed
 	$('body').removeClass('no-scroll');
-	}, 2000); //Here you can change preloader time
+	}, 0); //Here you can change preloader time
 	 
 })(jQuery);

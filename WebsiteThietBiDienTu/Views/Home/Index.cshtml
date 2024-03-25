@@ -4,14 +4,14 @@
     ViewData["Title"] = "HomePage";
     Pager pager = new Pager();
     int pageNo = 0;
-    if(ViewBag.Pager != null)
+    if (ViewBag.Pager != null)
     {
         pager = ViewBag.Pager;
         pageNo = pager.CurrentPage;
     }
 }
 
-
+<partial name="_Carousel" />
 <!-- Start Product Area -->
 <div class="product-area section">
     <div class="container">
@@ -26,7 +26,7 @@
             <div class="col-12">
                 <div class="product-info">
                     <div class="nav-main">
-                        
+
                     </div>
                     <div class="tab-content" id="myTabContent">
                         <!-- Start Single Tab -->
@@ -36,45 +36,90 @@
                                 <div class="row">
                                     @foreach (var item in Model)
                                     {
-                                        <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                        @if (item.SoLuong == 0)
+                                        {
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                                <div class="single-product">
+                                                    <div class="opacity-75 product-img">
+                                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
 
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
-                                                        
-                                                        @if (item.GiaBan != item.GiaGoc)
-                                                        {
-                                                            <span class="price-dec">Giam gia</span>
+                                                            @if (item.GiaBan != item.GiaGoc)
+                                                            {
+                                                                <span class="price-dec">Giam gia</span>
 
-                                                        }
-                                                        <img class="card-img-top" src="/images/products/@item.HinhAnh" alt="#">
-                                                    </a>
-                                                </div>
-                                                <div class="product-content">
-                                                    <h3><a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">@item.Ten</a></h3>
-                                                    <div class="product-price">
+                                                            }
+                                                            <img class="card-img-top" src="/images/products/@item.HinhAnh" alt="#">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-content">
+                                                        <h3><a>@item.Ten</a></h3>
+                                                        <div class="product-price">
 
-                                                        @if (item.GiaBan != item.GiaGoc)
-                                                        {
+                                                            @if (item.GiaBan != item.GiaGoc)
+                                                            {
 
-                                                            <span class="text-muted text-decoration-line-through">@item.GiaGoc VND</span>
-                                                            <span class="text-danger fw-bolder">@item.GiaBan VND</span>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span>Gia: </span>
-                                                            <span class="text-danger fw-bolder">@item.GiaBan VND</span>
-                                                        }
+                                                                <span class="text-muted text-decoration-line-through">@item.GiaGoc VND</span>
+                                                                <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Gia: </span>
+                                                                <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                                                            }
 
 
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                        <div class="text-center"><a class="btn btn-outline-info mt-auto">Chọn mua</a></div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                    <div class="text-center"><a class="btn btn-outline-info mt-auto" asp-action="AddToCart" asp-route-id="@item.MaMh">Chọn mua</a></div>
-                                                </div>
-                                            </div>
 
-                                        </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+
+                                                <div class="single-product">
+                                                    <div class="product-img">
+                                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
+
+                                                            @if (item.GiaBan != item.GiaGoc)
+                                                            {
+                                                                <span class="price-dec">Giam gia</span>
+
+                                                            }
+                                                            <img class="card-img-top" src="/images/products/@item.HinhAnh" alt="#">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-content">
+                                                        <h3><a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">@item.Ten</a></h3>
+                                                        <div class="product-price">
+
+                                                            @if (item.GiaBan != item.GiaGoc)
+                                                            {
+
+                                                                <span class="text-muted text-decoration-line-through">@item.GiaGoc VND</span>
+                                                                <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Gia: </span>
+                                                                <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                                                            }
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                        <div class="text-center"><a class="btn btn-outline-info mt-auto" asp-action="AddToCart" asp-route-id="@item.MaMh">Chọn mua</a></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        }
+
                                     }
                                 </div>
 
@@ -193,7 +238,6 @@
 </section>
 <!-- /End Cowndown Area -->
 <!-- Start Shop Services Area -->
-    
 <!-- End Shop Services Area -->
 <!-- Start Shop Newsletter  -->
 <section class="shop-newsletter section">

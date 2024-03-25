@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebsiteThietBiDienTu.Models.Danhmuc>
 
-@{
+@*@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -20,17 +20,64 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ten)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaDm">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaDm">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaDm">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ten)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaDm">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaDm">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaDm">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
-</table>
+</table>*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">DANH MỤC</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DANH MỤC SẢN PHẨM</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered">
+                    <button type="button" class="btn btn-outline-primary" asp-action="Create">Them Danh Mục</button>
+                    <thead>
+                        <tr>
+                            <th>Tên Danh Mục</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Ten)</td>                              
+                                <td>
+                                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.MaDm">Sửa</a>
+                                    <button type="button" class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.MaDm">Chi Tiết</button>
+                                    <button type="button" class="btn btn-outline-primary" asp-action="Delete" asp-route-id="@item.MaDm">Xóa</button>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

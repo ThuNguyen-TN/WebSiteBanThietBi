@@ -259,7 +259,7 @@ namespace WebsiteThietBiDienTu.Controllers
             else if (nv != null && _nvpasswordHasher.VerifyHashedPassword(nv, nv.MatKhau, matkhau) == PasswordVerificationResult.Success)
             {
                 HttpContext.Session.SetString("nhanvien", email);
-                return RedirectToAction("Index", "Main");
+                return RedirectToAction("Index", "Admin");
             }
             //khong ton tai khach hang chuyen ve login
             return RedirectToAction(nameof(Login));
@@ -411,6 +411,12 @@ namespace WebsiteThietBiDienTu.Controllers
             return RedirectToAction(nameof(Customer));
         }
         public IActionResult OutOfStock()
+        {
+            GetInfo();
+            return View();
+        }
+
+        public IActionResult TinTuc()
         {
             GetInfo();
             return View();
