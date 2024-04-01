@@ -27,7 +27,7 @@ namespace WebsiteThietBiDienTu.Models
         public int MaKh { get; set; }
         [Column("MaDC")]
         public int MaDc { get; set; }
-        public int? TrangThai { get; set; }
+        public string TrangThai { get; set; }
 
         [ForeignKey(nameof(MaDc))]
         [InverseProperty(nameof(Diachi.Hoadon))]

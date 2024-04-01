@@ -5,29 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="mx-2">Chỉnh sửa danh mục</h1>
+<h1 class="mx-autto">Chỉnh sửa danh mục</h1>
 
-<h4 class="mx-2">Danh Mục</h4>
+<h4 class="mx-auto">Danh Mục</h4>
 <hr />
-<div class="row mx-2">
+<div class="row auto">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaDm" />
             <div class="form-group">
-                <label asp-for="Ten" class="control-label"></label>
+                <label class="control-label">Tên danh mục</label>
                 <input asp-for="Ten" class="form-control" />
                 <span asp-validation-for="Ten" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div class="mx-2">
-    <a asp-action="Index">Back to List</a>
+<div class="mx-auto">
+    <a class="btn btn-outline-primary" asp-action="Index">Trở lại trang chủ</a>
 </div>
 
 @*@section Scripts {

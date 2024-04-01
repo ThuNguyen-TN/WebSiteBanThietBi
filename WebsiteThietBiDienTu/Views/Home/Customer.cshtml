@@ -1,77 +1,57 @@
-﻿@model IEnumerable<WebsiteThietBiDienTu.Models.Diachi>;
-@{ ViewData["Title"] = "Thông tin tài khoản"; }
-<div class="d-flex justify-content-between mb-3">
-    <div><h2>Thông tin tài khoản</h2></div>
-    <div><a class="btn btn-outline-info" asp-action="DonHangChuaDuyet">Lịch sử đặt hàng</a></div>
-</div>
+﻿
+@model WebsiteThietBiDienTu.Models.Diachi
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center justify-content-center">
+            <div class="col-md-6">
+                <p class="lead">Họ và Tên: @ViewBag.khachhang.Ten</p>
+                <p class="lead">Email: @ViewBag.khachhang.Email</p>
+                <p class="lead">Điện Thoại: @ViewBag.khachhang.DienThoai</p>
+                @{
+                    string tmp = Model.DiaChi1 + ", xã " + Model.PhuongXa + ", huyện " + Model.QuanHuyen + ", tỉnh " + Model.TinhThanh;
+                    <p class="lead">Địa Chỉ: @tmp</p>
+                }
+                <div class="d-flex">
 
-<div class="col-2"></div>
-<div class="col-8 justify-content-center align-items-center">
-    <dl class="row">
-        <dt class="col-sm-2">
-            Tên người dùng
-        </dt>
-        <dd class="col-sm-10">
-            @ViewBag.khachhang.Ten
-        </dd>
-        <dt class="col-sm-2">
-            Số diện thoại
-        </dt>
-        <dd class="col-sm-10">
-            @ViewBag.khachhang.DienThoai
-        </dd>
-        <dt class="col-sm-2">
-            Email
-        </dt>
-        <dd class="col-sm-10">
-            @ViewBag.khachhang.Email
-        </dd>
-        <dt class="col-sm-2">
-            Địa chỉ
-        </dt>
-        <dd class="col-sm-10">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Địa chỉ</th>
-                        <th scope="col" class="text-center">Mặc định</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{ int stt = 1;
-                        foreach (Diachi i in Model)
+                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="EditCustomer">Chỉnh Sửa Thông Tin</a></div>
+                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="ChangeAddress" asp-controller="Home">Đổi Địa Chỉ</a></div>
+                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="Logout">Đăng Xuất</a></div>
+
+                </div>
+            </div>          
+               <h3 class="text-center py-5">Đơn Hàng Đã Đặt</h3>
+                <div class="container">
+                    <div class="row">
+                        @foreach (var order in ViewBag.cthoadon)
                         {
-                            string tmp = i.DiaChi1 + ", " + i.PhuongXa + ", " + i.QuanHuyen + ", " + i.TinhThanh;
-                            <tr>
-                                <td>@stt</td>
-                                <td>@tmp</td>
-                                @if (i.MacDinh == 1)
-                                {
-                                    <td class="text-center"><i class="bi bi-check-circle-fill"></i></td>
-                                    <td></td>
-                                }
-                                else
-                                {
-                                    <td class="text-center" action="SetAddressDefault"><a class="btn btn-outline-success" asp-action="SetDefaultAddress" asp-route-id="@i.MaDc">Đặt làm mặc định</a></td>
-                                    <td><a class="btn btn-outline-danger" asp-action="DeleteAddress" asp-route-id="@i.MaDc">Xóa</a></td>
-                                }
+                            <div class="col-md-12">
+                                <div class="card mb-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-2">
+                                            <img src="/images/products/@order.MaMhNavigation.HinhAnh" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="col-md-8 ml-5">
+                                            <div class="card-body justify-content-center">
+                                                <h5 class="card-title">Mã hóa đơn: @order.MaCthd</h5>
+                                                <p class="card-text">Tên Sản Phẩm: @order.MaMhNavigation.Ten</p>
+                                                <p class="card-text">Ngày Đặt Hàng: @order.MaHdNavigation.Ngay</p>
+                                                <p class="card-text">Đơn Giá: @order.DonGia</p>
+                                                <p class="card-text">Số Lượng: @order.SoLuong</p>
+                                                <p class="card-text">Tổng tiền: @order.ThanhTien</p>
+                                                <p class="card-text">Tình Trạng Đơn Hàng: @order.MaHdNavigation.TrangThai</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
 
-                            </tr>
-                            stt++;
-                        } }
-                </tbody>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                        }
+                    </div>
+                </div>
+                <div class="col-md-8">
+                </div>      
+        </div>
+    </div>
 
-
-            </table>
-        </dd>
-    </dl>
-</div>
-<div class="col-2 justify-content-center align-items-center">
-    <a class="btn text-white" asp-action="EditCustomer">Chỉnh sửa thông tin</a>
-    <a class="btn text-white" asp-action="AddAddress">Thêm địa chỉ</a>
-    <a class="btn text-white" asp-action="Logout">Đăng xuất <i class="bi bi-box-arrow-right"></i></a>
-</div>
-<div class="col-2"></div>

@@ -1,354 +1,174 @@
 ﻿<!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 <head>
-    <!-- Meta Tag -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name='copyright' content=''>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <!-- Web Font -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/Home_Page/css/styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-
-    <!-- StyleSheet -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="/template/css/bootstrap.css">
-    <!-- Magnific Popup -->
-    <link rel="stylesheet" href="/template/css/magnific-popup.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/template/css/font-awesome.css">
-    <!-- Fancybox -->
-    <link rel="stylesheet" href="/template/css/jquery.fancybox.min.css">
-    <!-- Themify Icons -->
-    <link rel="stylesheet" href="/template/css/themify-icons.css">
-    <!-- Nice Select CSS -->
-    <link rel="stylesheet" href="/template/css/niceselect.css">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="/template/css/animate.css">
-    <!-- Flex Slider CSS -->
-    <link rel="stylesheet" href="/template/css/flex-slider.min.css">
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href="/template/css/owl-carousel.css">
-    <!-- Slicknav -->
-    <link rel="stylesheet" href="/template/css/slicknav.min.css">
-
-    <!-- Eshop StyleSheet -->
-    <link rel="stylesheet" href="/template/css/reset.css">
-    <link rel="stylesheet" href="/template/style.css">
-    <link rel="stylesheet" href="/template/css/responsive.css">
-
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </head>
-<body class="js">
+<body>
+    <div class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container px-4 px-lg-5">
 
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-icon">
-                <span></span>
-                <span></span>
+            <div class="col-lg-3 col-md-4 col-12"></div>
+            <div class="col-lg-6 col-md-4 col-12 justify-content-center">
+                <form class="form-inline d-flex mx-auto" asp-action="Index">
+                    <input class="form-control ml-sm-2 mx-auto" type="text" placeholder="Search" name="search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
             </div>
+            <div class="col-lg-3 col-md-4 col-12">
+                <ul class="navbar-nav justify-content-end mx-auto padding-top-0">
+                    @if (ViewBag.khachhang != null)
+                    {
+        <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Customer" asp-controller="Home">
+            <i class="bi bi-person-circle"></i>
+            @ViewBag.khachhang.Ten
+        </a> }
+                    else
+                    {
+        <li class="nav-item">
+            <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Login">
+                <i class="bi bi-person-circle"></i>
+                Đăng Nhập
+            </a>
+        </li>            }
+
+                </ul>
+            </div>
+
         </div>
     </div>
-    <!-- End Preloader -->
-    <!-- Header -->
-    <header class="header shop">
-        <!-- Topbar -->
-        <div class="topbar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-12">
 
-                    </div>
-                    <div class="col-lg-8 col-md-12 col-12">
-                        <!-- Top Right -->
-                        <div class="right-content">
-                            <ul class="list-main">
-                                @if (ViewBag.khachhang != null)
-                                {
-                                    <li>
-                                        <i class="ti-power-off"></i>
-                                        <a asp-action="Customer">Welcome @ViewBag.khachhang.Ten to website of us</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li>
-                                        <i class="ti-user"></i>
-                                        <a asp-action="Register">Đăng Ký</a>
-                                    </li>
-                                    <li>
-                                        <i class="ti-power-off"></i>
-                                        <a asp-action="Login">Dang Nhap</a>
-                                    </li>
-                                }
-
-
-                            </ul>
-                        </div>
-                        <!-- End Top Right -->
-                    </div>
+    <!-- Navigation-->
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container px-4 px-lg-5">
+                <div class="col-lg-3 col-md-4 col-12">
+                    <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                 </div>
-            </div>
-        </div>
-        <!-- End Topbar -->
-        <div class="middle-inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-12">
-                        <!-- Logo -->
-                        <div class="logo">
-                            <a><img class="img-thumbnail" src="/images/carousel/logo.jpeg" alt="logo"></a>
-                        </div>
-                        <!--/ End Logo -->
-                        <!-- Search Form -->
-                        <div class="search-top">
-                            <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-                            <!-- Search Form -->
-                            <div class="search-top">
-                                <form class="search-form">
-                                    <input type="text" placeholder="Search here..." name="search">
-                                    <button value="search" type="submit"><i class="ti-search"></i></button>
-                                </form>
-                            </div>
-                            <!--/ End Search Form -->
-                        </div>
-                        <!--/ End Search Form -->
-                        <div class="mobile-nav"></div>
-                    </div>
-                    <div class="col-lg-8 col-md-7 col-12">
-                        <div class="search-bar-top">
-                            <div class="search-bar">
-
-                                <form>
-                                    <input name="search" placeholder="Search Products Here....." type="search">
-                                    <button class="btnn bg-primary"><i class="ti-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-12">
-                        <div class="right-bar">
-                            <!-- Search Form -->
-
-                            <div class="sinlge-bar">
-                                <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                            </div>
-                            <div class="sinlge-bar shopping">
-                                <a asp-action="ViewCart" class="single-icon"><i class="ti-bag"></i><span class="total-count">@ViewData["soluong"]</span>Gio Hang </a>
-                                <!-- Shopping Item -->
-                                @*<div class="shopping-item">
-                                        <a asp-action="ViewCart">
-                                            <div>Gio Hang</div>
-                                        </a>
-                                </div>*@
-                                <!--/ End Shopping Item -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Header Inner -->
-        <div class="header-inner bg-primary">
-            <div class="container">
-                <div class="cat-nav-head">
-                    <div class="row">
-                        <div class="col-lg-9 col-12">
-                            <div class="menu-area">
-                                <!-- Main Menu -->
-                                <nav class="navbar navbar-expand-lg">
-                                    <div class="navbar-collapse">
-                                        <div class="nav-inner">
-                                            <ul class="nav main-menu menu navbar-nav">
-                                                <li class="active"><a href="#">Home</a></li>
-                                                <li><a href="#">Sản phẩm</a></li>
-                                                <li>
-                                                    <a href="#">Danh mục<i class="ti-angle-down"></i></a>
-                                                    <ul class="dropdown">
-                                                        @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
-                                                        {
-                                                            <li><a asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>
-                                                        }
-
-
-                                                    </ul>
-                                                </li>
-                                                <li><a asp-action="TinTuc" asp-controller="Home">Tin tức</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </nav>
-                                <!--/ End Main Menu -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--/ End Header Inner -->
-    </header>
-    <!--/ End Header -->
-    <!-- Slider Area -->
-    <!--<section class="hero-slider">
-        <!--Single Slider -->
-    <!--<div class="single-slider">
-        <div class="container my-4">
-            <div class="row no-gutters">
-                <div class="col-lg-9 offset-lg-3 col-12">
-                    <div class="text-inner">
-                        <div class="row">
-                            <div class="col-lg-7 col-12">
-                                <div class="hero-text">
-                                    <h1><span>UP TO 50% OFF </span>Shirt For Man</h1>
-                                    <p>Maboriosam in a nesciung eget magnae <br> dapibus disting tloctio in the find it pereri <br> odiy maboriosm.</p>
-                                    <div class="button">
-                                        <a href="#" class="btn">Shop Now!</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-    @*/ End Single Slider*@
-    @*</section>-->*@
-
-    
-    <!--/ End Slider Area -->
-    @RenderBody()
-    <footer class="footer">
-        <!-- Footer Top -->
-        <div class="footer-top section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer about">
-                            <div class="logo">
-                                <a href="index.html"><img src="images/logo2.png" alt="#"></a>
-                            </div>
-                            <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue,  magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-                            <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456 789</a></span></p>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-2 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer links">
-                            <h4>Information</h4>
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Faq</a></li>
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Help</a></li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-2 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer links">
-                            <h4>Customer Service</h4>
-                            <ul>
-                                <li><a href="#">Payment Methods</a></li>
-                                <li><a href="#">Money-back</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer social">
-                            <h4>Get In Tuch</h4>
-                            <!-- Single Widget -->
-                            <div class="contact">
-                                <ul>
-                                    <li>NO. 342 - London Oxford Street.</li>
-                                    <li>012 United Kingdom.</li>
-                                    <li>info@eshop.com</li>
-                                    <li>+032 3456 7890</li>
+                <div class="col-lg-6 col-md-4 col-12">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav justify-content-center mx-auto">
+                            <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" asp-action="Index" asp-controller="Home">Trang Chủ</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark fw-bold link-primary" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sản Phẩm</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
+                                    {
+                        <li><a asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>
+}
                                 </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                            <ul>
-                                <li><a href="#"><i class="ti-facebook"></i></a></li>
-                                <li><a href="#"><i class="ti-twitter"></i></a></li>
-                                <li><a href="#"><i class="ti-flickr"></i></a></li>
-                                <li><a href="#"><i class="ti-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
+                            </li>
+                            <li class="nav-item text-dark"><a class="nav-link text-dark fw-bold link-primary" href="#!">About</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" asp-action="TinTuc">Tin Tức</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" href="#!">Liên Hệ</a></li>
+                        </ul>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-4 col-12">
+
+                    <a class="btn btn-outline-primary bg-primary text-white">
+                        <i class="bi-cart-fill me-1"></i>
+                        Giỏ Hàng
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">@ViewData["soluong"]</span>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            @RenderBody()
+        </div>
+    </section>
+            
+            <!-- Footer-->
+    @*<footer class="py-5 bg-dark">
+        <div class="row mx-2">
+            <div class="col-6 text-white">
+                <h4>
+                    MoBiFone
+                </h4>
+                <p>
+
+                    <b><i>HotLine:</i></b>077 924 9999<br>
+                    <b><i>Email:</i></b>mobifoneaglx@gmail.com<br>
+                    <b><i>Địa chỉ:</i></b>93, Trần Hưng Đạo, Mỹ Quý Long Xuyên, An Giang<br>
+
+                </p>
+            </div>
+            <div class="col-3 text-muted">
+                <h4>Kết nối mobifone</h4>
+                <a href="https://www.facebook.com/mobifonetinhangiang/" class="list-group-item"><i class="bi bi-facebook"></i></a>
+                <a href="https://play.google.com/store/apps/details?id=vms.com.vn.mymobifone" class="list-group-item"><i class="bi bi-android2"></i></a>
+                <a href="https://zalo.me/0779249999" class="list-group-item">zalo</a>
+                
+            </div>
+            <div class="col-3 text-muted">
+                <h4>DỊCH VỤ KHÁCH HÀNG</h4>
+                <a href="#" class="list-group-item">Giới thiệu</a>
+                <a href="#" class="list-group-item">Liên hệ với chúng tôi</a>
             </div>
         </div>
-        <!-- End Footer Top -->
-        <div class="copyright">
-            <div class="container">
-                <div class="inner">
-                    <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <div class="left">
-                                <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>  -  All Rights Reserved.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="right">
-                                <img src="images/payments.png" alt="#">
-                            </div>
-                        </div>
-                    </div>
+        <hr>
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Mobifone</p></div>
+    </footer>*@
+
+    <footer class="py-5 bg-dark text-white">
+        <div class="text-center mb-5"><a class="text-warning" href="#top"><i class="bi bi-chevron-up" style="font-size: 3rem; font-weight: bold; color:white;"></i></a></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6 text-white">
+                    <h4>
+                        MoBiFone
+                    </h4>
+                    <p>
+                        <b><i>HotLine:</i></b>077 924 9999<br>
+                        <b><i>Email:</i></b>mobifoneaglx@gmail.com<br>
+                        <b><i>Địa chỉ:</i></b>93, Trần Hưng Đạo, Mỹ Quý Long Xuyên, An Giang<br>
+
+                    </p>
+                </div>
+                <div class="col-3 text-muted">
+                    <h4>Kết nối mobifone</h4>
+                    <a href="https://www.facebook.com/mobifonetinhangiang/"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.facebook.com/mobifonetinhangiang/">Android</a>
+                    <a href="https://zalo.me/0779249999" class="list-group-item">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Zalo" style="width: 40px; height: 40px;">
+                    </a>
+                </div>
+                <div class="col-3 text-muted">
+                    <h4>DỊCH VỤ KHÁCH HÀNG</h4>
+                    
+                    <a class="list-group-item">Giới thiệu</a>
+                    <a class="list-group-item">Liên hệ với chúng tôi</a>
                 </div>
             </div>
+            <hr>
+            <p class="m-0 text-center text-warning fw-bolder">Copyright &copy; MobiFone</p>
         </div>
     </footer>
-    <!-- /End Footer Area -->
-    <!-- Jquery -->
-    <script src="/template/js/jquery.min.js"></script>
-    <script src="/template/js/jquery-migrate-3.0.0.js"></script>
-    <script src="/template/js/jquery-ui.min.js"></script>
-    <!-- Popper JS -->
-    <script src="/template/js/popper.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="/template/js/bootstrap.min.js"></script>
-    <!-- Color JS -->
-    <script src="/template/js/colors.js"></script>
-    <!-- Slicknav JS -->
-    <script src="/template/js/slicknav.min.js"></script>
-    <!-- Owl Carousel JS -->
-    <script src="/template/js/owl-carousel.js"></script>
-    <!-- Magnific Popup JS -->
-    <script src="/template/js/magnific-popup.js"></script>
-    <!-- Waypoints JS -->
-    <script src="/template/js/waypoints.min.js"></script>
-    <!-- Countdown JS -->
-    <script src="/template/js/finalcountdown.min.js"></script>
-    <!-- Nice Select JS -->
-    <script src="/template/js/nicesellect.js"></script>
-    <!-- Flex Slider JS -->
-    <script src="/template/js/flex-slider.js"></script>
-    <!-- ScrollUp JS -->
-    <script src="/template/js/scrollup.js"></script>
-    <!-- Onepage Nav JS -->
-    <script src="/template/js/onepage-nav.min.js"></script>
-    <!-- Easing JS -->
-    <script src="/template/js/easing.js"></script>
-    <!-- Active JS -->
-    <script src="/template/js/active.js"></script>
+            <!-- Bootstrap core JS-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Core theme JS-->
+            <script src="/Home_Page/js/scripts.js"></script>
 </body>
 </html>

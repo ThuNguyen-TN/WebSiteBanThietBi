@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Sửa thông tin tài khoản";
 }
 <div class="container">
@@ -9,12 +10,13 @@
         <div class="col-md-4 ">
             <form asp-action="EditCustomer">
                 <div class="my-3">
+                    <input type="hidden" name="id" value="@ViewBag.khachhang.MaKh" />
                     <label>Họ tên</label>
                     <input type="text" name="hoten" class="form-control" value="@ViewBag.khachhang.Ten" />
                 </div>
                 <div class="my-3">
                     <label>Số điện thoại</label>
-                    <input type="text" name="dienthoai" class="form-control" value="@ViewBag.khachhang.Dienthoai" />
+                    <input type="text" name="sodienthoai" class="form-control" value="@ViewBag.khachhang.DienThoai" />
                 </div>
                 <div class="my-3">
                     <label>Email</label>
@@ -24,10 +26,35 @@
                     <label>Mật khẩu mới</label>
                     <input type="text" name="matkhau" class="form-control" />
                 </div>
-                <div class="my-3 d-grid">
-                    <input type="submit" value="Lưu" class="btn btn-block btn-success" />
+                <div class="d-grid">
+                    <input type="submit" value="Chỉnh sửa" class="btn btn-info btn-block" />
                 </div>
             </form>
         </div>
     </div>
 </div>
+<!--<div class="col-md-8">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Profile Information</h5>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for="inputName">Name</label>
+                    <input type="text" class="form-control" id="inputName" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">Phone</label>
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                </div>-->
+<!-- Add more fields as needed -->
+<!--<button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>-->

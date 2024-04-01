@@ -41,16 +41,16 @@ namespace WebsiteThietBiDienTu.Controllers
                 ViewBag.nhanvien = _context.Nhanvien.FirstOrDefault(n => n.Email == HttpContext.Session.GetString("nhanvien"));
             }
 
-
+            
         }
         // GET: Home
-        public async Task<IActionResult> Index(int pg = 1)
+        public async Task<IActionResult> Index(int pg = 1,string search="")
         {
             GetInfo();
             var applicationDbContext = _context.Sanpham.Include(s => s.MaDmNavigation);
 
 
-            const int pageSize = 5;
+            const int pageSize = 8;
             if (pg < 1)
                 pg = 1;
 
@@ -61,9 +61,30 @@ namespace WebsiteThietBiDienTu.Controllers
 
             this.ViewBag.Pager = pager;
 
-
+            if(search != null && search != "")
+            {
+                data = _context.Sanpham.Where(p => p.Ten.Contains(search)).ToList();
+            }
+            ViewBag.search = data;
             return View(data);
+            //var query = _context.Sanpham.AsQueryable();
+            //if (pg < 1)
+            //   pg = 1;
 
+            //if(search != null && search != "")
+            //{
+            //    query = _context.Sanpham.Where(p => p.Ten.Contains(search)).AsQueryable();
+            //}
+
+            //int resCount = query.Count();
+
+            //int recSkip = (pg - 1) * pageSize;
+
+            //List<Sanpham> resSanPham = query.Skip(recSkip).Take(pageSize).ToList();
+
+            //Pager SearchPager = new Pager(resCount, pg, pageSize);
+
+            //View
         }
 
         // GET: Home/Details/5
@@ -378,9 +399,13 @@ namespace WebsiteThietBiDienTu.Controllers
         public IActionResult Customer()
         {
             int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
-            var lstDiaChi = _context.Diachi.Where(d => d.MaKh == makh);
+            var lstDiaChi = _context.Diachi.FirstOrDefault(d => d.MaKh == makh);
+            
+            ViewBag.hoadon = _context.Hoadon.Where(h => h.MaKh == makh).Include(m=>m.MaKhNavigation);
+            ViewBag.cthoadon = _context.Cthoadon.Where(h => h.MaHdNavigation.MaKh == makh).Include(m=>m.MaHdNavigation).Include(m=>m.MaMhNavigation);
             GetInfo();
             return View(lstDiaChi);
+
         }
         public async Task<IActionResult> EditCustomer()
         {
@@ -391,6 +416,7 @@ namespace WebsiteThietBiDienTu.Controllers
         public async Task<IActionResult> EditCustomer(int id, string email, string matkhau, string hoten, string sodienthoai)
         {
             var kt = _context.Khachhang.FirstOrDefault(k => k.Email == email && k.MaKh != id && k.MatKhau != null);
+            
             if (kt != null)
             {
                 GetInfo();
@@ -410,6 +436,27 @@ namespace WebsiteThietBiDienTu.Controllers
             GetInfo();
             return RedirectToAction(nameof(Customer));
         }
+        public IActionResult ChangeAddress()
+        {
+            GetInfo();
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangeAddress(string diachi, string phuongxa, string quanhuyen, string tinhthanh)
+        {
+            int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
+            var dc = _context.Diachi.FirstOrDefault(d => d.MaKh == makh);
+            dc.DiaChi1 = diachi;
+            dc.PhuongXa = phuongxa;
+            dc.QuanHuyen = quanhuyen;
+            dc.TinhThanh = tinhthanh;
+            dc.MacDinh = 1;
+            _context.Update(dc);
+            await _context.SaveChangesAsync();
+
+            GetInfo();
+            return RedirectToAction(nameof(Customer));
+        }
         public IActionResult OutOfStock()
         {
             GetInfo();
@@ -420,6 +467,16 @@ namespace WebsiteThietBiDienTu.Controllers
         {
             GetInfo();
             return View();
+        }
+        
+        public async Task<IActionResult> GetOrderDetail()
+        {
+            int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
+            GetInfo();
+            var applicationDbContext = _context.Hoadon
+                .Where(p => p.MaKh == makh)
+                .Include(m => m.MaDcNavigation);
+            return View(await applicationDbContext.ToListAsync());
         }
 
     }

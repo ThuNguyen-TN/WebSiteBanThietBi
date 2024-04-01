@@ -5,12 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<h1 class="text-center">Hóa Đơn</h1>
+<table class="table mx-auto">
     <thead>
         <tr>
             <th>
@@ -20,13 +16,17 @@
                 @Html.DisplayNameFor(model => model.TongTien)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+                Cập nhật trạng thái
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaDcNavigation)
+                Trạng Thái Đơn Hàng               
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaKhNavigation)
+                @*@Html.DisplayNameFor(model => model.MaKhNavigation)*@
+               Địa Chỉ
+            </th>
+            <th>
+                Tên Khách Hàng
             </th>
             <th></th>
         </tr>
@@ -41,6 +41,20 @@
                 @Html.DisplayFor(modelItem => item.TongTien)
             </td>
             <td>
+                <form asp-controller="Hoadons" asp-action="UpdateStatus" method="post">
+                    <input type="hidden" name="id" value="@item.MaHd" />
+                    <select name="newStatus">
+                        <option value="Chờ xác nhận" selected="@(item.TrangThai == "Chờ xác nhận")">Chờ xác nhận</option>
+                        <option value="Đang xử lý" selected="@(item.TrangThai == "Đang xử lý")">Đang xử lý</option>
+                        <option value="Đang giao hàng" selected="@(item.TrangThai == "Đang giao hàng")">Đang giao hàng</option>
+                        <option value="Đã giao hàng" selected="@(item.TrangThai == "Đã giao hàng")">Đã giao hàng</option>
+                        <option value="Đã hủy đơn hàng" selected="@(item.TrangThai == "Đã hủy đơn hàng")">Đã hủy đơn hàng</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+                @*@Html.DisplayFor(modelItem => item.TrangThai)*@
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
             <td>
@@ -49,12 +63,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MaKhNavigation.Ten)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaHd">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaHd">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaHd">Delete</a>
+            <td>              
+                <a class="btn btn-outline-primary mx-auto" asp-action="Details" asp-route-id="@item.MaHd">Chi tiết</a>
+                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaHd">Xóa</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+

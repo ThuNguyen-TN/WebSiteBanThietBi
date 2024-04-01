@@ -1,4 +1,4 @@
-﻿@model WebsiteThietBiDienTu.Models.Khachhang
+﻿@model WebsiteThietBiDienTu.Models.Cuahang
 
 @{
     ViewData["Title"] = "Create";
@@ -7,7 +7,7 @@
 
 <h1>Create</h1>
 
-<h4>Khachhang</h4>
+<h4>Cuahang</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,14 +24,9 @@
                 <span asp-validation-for="DienThoai" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MatKhau" class="control-label"></label>
-                <input asp-for="MatKhau" class="form-control" />
-                <span asp-validation-for="MatKhau" class="text-danger"></span>
+                <label asp-for="DiaChi" class="control-label"></label>
+                <input asp-for="DiaChi" class="form-control" />
+                <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

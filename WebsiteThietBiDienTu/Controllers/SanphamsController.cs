@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +22,29 @@ namespace WebsiteThietBiDienTu.Controllers
         }
 
         // GET: Sanphams
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg=1,string sortOrder="",string searchString="")
         {
-            var applicationDbContext = _context.Sanpham.Include(s => s.MaDmNavigation);
-            return View(await applicationDbContext.ToListAsync());
+
+            //var applicationDbContext = _context.Sanpham.Include(s => s.MaDmNavigation);
+
+
+            //return View(await applicationDbContext.ToArrayAsync());
+
+            var query = _context.Sanpham.Include(s => s.MaDmNavigation);
+
+            const int pageSize = 8;
+            if (pg < 1)
+                pg = 1;
+
+            var pager = new Pager(query.Count(), pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = await query.Skip(recSkip).Take(pager.PageSize).ToListAsync();
+
+           
+
+            return View(data);
+
+
         }
 
         // GET: Sanphams/Details/5
@@ -57,10 +78,11 @@ namespace WebsiteThietBiDienTu.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaMh,Ten,GiaGoc,GiaBan,SoLuong,MoTa,HinhAnh,MaDm,LuotXem,LuotMua")] Sanpham sanpham)
+        public async Task<IActionResult> Create([Bind("MaMh,Ten,GiaGoc,GiaBan,SoLuong,MoTa,HinhAnh,MaDm,LuotXem,LuotMua")] Sanpham sanpham, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                sanpham.HinhAnh = Upload(file);
                 _context.Add(sanpham);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,7 +113,7 @@ namespace WebsiteThietBiDienTu.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaMh,Ten,GiaGoc,GiaBan,SoLuong,MoTa,HinhAnh,MaDm,LuotXem,LuotMua")] Sanpham sanpham)
+        public async Task<IActionResult> Edit(int id,IFormFile file, [Bind("MaMh,Ten,GiaGoc,GiaBan,SoLuong,MoTa,HinhAnh,MaDm,LuotXem,LuotMua")] Sanpham sanpham)
         {
             if (id != sanpham.MaMh)
             {
@@ -102,6 +124,10 @@ namespace WebsiteThietBiDienTu.Controllers
             {
                 try
                 {
+                    if (file != null)
+                    {
+                        sanpham.HinhAnh = Upload(file);
+                    }
                     _context.Update(sanpham);
                     await _context.SaveChangesAsync();
                 }
@@ -155,6 +181,23 @@ namespace WebsiteThietBiDienTu.Controllers
         private bool SanphamExists(int id)
         {
             return _context.Sanpham.Any(e => e.MaMh == id);
+        }
+        public string Upload(IFormFile file)
+        {
+            string uploadFileName = null;
+            if (file != null)
+            {
+                // phát sinh tên file mới: chuỗi ngẫu nhiên_tên ảnh
+                uploadFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                // chép file về thư mục lưu trữ ảnh
+                var path = $"wwwroot\\images\\products\\{uploadFileName}";
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+            }
+            return uploadFileName; // trả về tên file
         }
     }
 }

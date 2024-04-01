@@ -5,16 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1 class="mx-auto">Thêm danh mục</h1>
 
-<h4>Danhmuc</h4>
+<h4 class="mx-auto">Danh mục</h4>
 <hr />
-<div class="row">
+<div class="row mx-auto">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Ten" class="control-label"></label>
+                <label class="control-label">Tên danh mục</label>
                 <input asp-for="Ten" class="form-control" />
                 <span asp-validation-for="Ten" class="text-danger"></span>
             </div>
@@ -25,10 +25,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mx-auto">
+    <a asp-action="Index">Trở về trang chủ</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

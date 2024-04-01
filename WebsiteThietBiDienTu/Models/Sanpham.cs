@@ -12,6 +12,7 @@ namespace WebsiteThietBiDienTu.Models
     [Table("SANPHAM")]
     public partial class Sanpham
     {
+        
         public Sanpham()
         {
             Cthoadon = new HashSet<Cthoadon>();

@@ -5,45 +5,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Chi tiết đơn hàng</h1>
 
-<div>
-    <h4>Hoadon</h4>
+<div class="justify-content-center">
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ngay)
+    <dl class="row mx-auto">
+        <dt class="col-sm-2">
+            Ngày Đặt Hàng
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ngay)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TongTien)
+        <dt class="col-sm-2">
+            Tên sản phẩm
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
+            @ViewBag.cthd.MaMhNavigation.Ten
+        </dd>
+        <dt class="col-sm-2">
+            Đơn giá
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.cthd.DonGia
+        </dd>
+        <dt class="col-sm-2">
+            Đơn giá
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.cthd.SoLuong
+        </dd>
+        <dt class="col-sm-2">
+            Tổng Tiền
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TongTien)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
+        <dt class="col-sm-2">
+            Tên Khách Hàng
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaDcNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaDcNavigation.DiaChi1)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaKhNavigation)
-        </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MaKhNavigation.Ten)
+        </dd>
+        <dt class="col-sm-2">
+            Địa Chỉ
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaDcNavigation.DiaChi1), xã @Html.DisplayFor(model => model.MaDcNavigation.PhuongXa), huyện @Html.DisplayFor(model => model.MaDcNavigation.QuanHuyen), tỉnh @Html.DisplayFor(model => model.MaDcNavigation.TinhThanh)
+        </dd>
+        <dt class="col-sm-2">
+            Trạng Thái
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TrangThai)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.MaHd">Edit</a> |
+<div class="mx-auto">
     <a asp-action="Index">Back to List</a>
 </div>

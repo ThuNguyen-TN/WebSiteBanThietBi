@@ -24,6 +24,7 @@ namespace WebsiteThietBiDienTu.Controllers
         {
             var applicationDbContext = _context.Hoadon.Include(h => h.MaDcNavigation).Include(h => h.MaKhNavigation);
             return View(await applicationDbContext.ToListAsync());
+
         }
 
         // GET: Hoadons/Details/5
@@ -42,7 +43,7 @@ namespace WebsiteThietBiDienTu.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.cthd =await _context.Cthoadon.Where(cthd => cthd.MaHdNavigation.MaHd == id).Include(hd => hd.MaHdNavigation).Include(mh => mh.MaMhNavigation).Include(kh => kh.MaHdNavigation.MaKhNavigation).FirstOrDefaultAsync();
             return View(hoadon);
         }
 
@@ -161,6 +162,21 @@ namespace WebsiteThietBiDienTu.Controllers
         private bool HoadonExists(int id)
         {
             return _context.Hoadon.Any(e => e.MaHd == id);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(int id, string newStatus)
+        {
+            //1: cho xac nha
+            //2: dang chuan bi hang
+            //3: dang giao
+            var order = _context.Hoadon.FirstOrDefault(o => o.MaHd == id);
+            if (order != null)
+            {
+                order.TrangThai = newStatus;
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
     }
 }
