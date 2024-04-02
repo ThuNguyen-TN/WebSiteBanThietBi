@@ -1,28 +1,15 @@
-﻿<div class="container">
+﻿@model WebsiteThietBiDienTu.Models.Tintuc
+
+<div class="container">
     <div class="row">
-            <div class="col-md-12">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-2">
-                            <img src="" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8 ml-5">
-                            <div class="card-body justify-content-center">
-                                <h5 class="card-title">Mã hóa đơn:</h5>
-                                <p class="card-text">Tên Sản Phẩm: </p>
-                                <p class="card-text">Ngày Đặt Hàng: </p>
-                                <p class="card-text">Đơn Giá: </p>
-                                <p class="card-text">Số Lượng: </p>
-                                <p class="card-text">Tình Trạng Đơn Hàng:</p>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <p class="px-2 text-center fw-bold fs-3">@Model.TieuDe</p>
+            <img src="~/images/news/@Model.HinhAnh" width="100%" />
+            <p class="py-2 fw-bold">@Model.TomTat</p>
+            <p>@Model.NoiDung</p>
+            <p class="py-md-2 text-md-left">Ngày đăng: @Model.NgayDang</p>
+        </div>
+        <div class="col-md-3"></div>
     </div>
 </div>

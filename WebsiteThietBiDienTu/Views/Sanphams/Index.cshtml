@@ -26,7 +26,8 @@
             <div class="card-body">
                 <form class="py-auto mx-auto" asp-action="Index" method="get">
                     <input type="text" name="searchString" placeholder="Từ khóa tìm kiếm">
-                    <button type="submit">Tìm kiếm</button>
+                    <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button> |
+                    <a asp-action="Index">Xóa tìm kiếm</a>
                 </form>
                 <div class="table-responsive">
 
@@ -36,16 +37,16 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <a asp-action="Index" asp-route-sortOrder="Name">Tên</a>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Tên</a>
                                 </th>
                                 <th>
                                     Giá Gốc
                                 </th>
                                 <th>
-                                    <a asp-action="Index" asp-route-sortOrder="Price">Gía</a>
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Giá Ban</a>
                                 </th>
                                 <th>
-                                    Số Lượng
+                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySortParm"]">Số lượng</a>
                                 </th>
                                 <th>
                                     Mô Tả
@@ -120,7 +121,41 @@
 
 </div>
 <div class="container">
-    <partial name="_pager" model="@pager" />
+
+    @if (pager.TotalItems > 0)
+    {
+        <ul class="pagination justify-content-center" style="margin:20px 0">
+            @if (pager.CurrentPage >= 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Sanphams" asp-action="Index" asp-route-pg="1">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Sanphams" asp-action="Index" asp-route-pg="@(pager.CurrentPage -1)">Previous</a>
+                </li>
+            }
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" :"")">
+                    <a class="page-link"  asp-controller="Sanphams" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                </li>
+            }
+            @if (pager.CurrentPage < pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Sanphams" asp-action="Index" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Sanphams" asp-action="Index" asp-route-pg="@(pager.TotalPages)">Last</a>
+                </li>
+            }
+        </ul>
+    }
+
+
+
+
+
 </div>
 
 

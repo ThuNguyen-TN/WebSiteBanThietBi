@@ -31,16 +31,34 @@
 
                 <td>
                     <form asp-action="UpdateItem" method="post">
-                        <div class="row">
-                            <div class="col">
-                                <input name="id" type="hidden" asp-for="@(i.SanPham.MaMh)" />
-                                <input name="quantity" type="number" asp-for="@(i.SoLuong)" class="form-control" />
-                            </div>
-                            <div class="col">
-                                <input class="btn btn-warning" type="submit" value="Cập nhật" />
-                            </div>
+                        @if (TempData["ErrorMessage"] == null)
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <input name="id" type="hidden" asp-for="@(i.SanPham.MaMh)" />
+                                    <input name="quantity" type="number" asp-for="@(i.SoLuong)" class="form-control" />
+                                </div>
+                                <div class="col">
+                                    <input class="btn btn-warning" type="submit" value="Cập nhật" />
+                                </div>
 
-                        </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <input name="id" type="hidden" asp-for="@(i.SanPham.MaMh)" />
+                                    <input name="quantity" type="number" asp-for="@(i.SoLuong)" class="form-control" />
+                                </div>
+                                <div class="col">
+                                    <input class="btn btn-warning" type="submit" value="Cập nhật" />
+                                </div>
+
+                            </div>
+                            <p>@TempData["ErrorMessage"]</p>
+                        }
+
                     </form>
                 </td>
                 <td><a asp-action="RemoveItem" asp-route-id="@i.SanPham.MaMh" class="btn btn-danger">Xóa</a></td>
@@ -65,3 +83,39 @@ else
 {
     <p class="alert alert-danger">Giỏ hàng rỗng!</p>
 }
+
+@*@if (TempData["ErrorMessage"] == null)
+{
+    <div class="row">
+        <div class="col">
+            <input name="id" type="hidden" asp-for="@(i.SanPham.MaMh)" />
+            <input name="quantity" type="number" asp-for="@(i.SoLuong)" class="form-control" />
+
+        </div>
+
+        <div class="col">
+
+            <input class="btn" type="submit" value="Cập nhật" />
+
+        </div>
+    </div>
+
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <input name="id" type="hidden" asp-for="@(i.SanPham.MaMh)" />
+            <input name="quantity" type="number" asp-for="@(i.SoLuong)" class="form-control" />
+
+        </div>
+
+        <div class="col">
+
+            <input class="btn" type="submit" value="Cập nhật" />
+
+        </div>
+    </div>
+    <p>@TempData["ErrorMessage"]</p>
+}*@

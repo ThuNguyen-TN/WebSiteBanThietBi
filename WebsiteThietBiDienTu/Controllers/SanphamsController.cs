@@ -30,19 +30,59 @@ namespace WebsiteThietBiDienTu.Controllers
 
             //return View(await applicationDbContext.ToArrayAsync());
 
-            var query = _context.Sanpham.Include(s => s.MaDmNavigation);
+            //var query = _context.Sanpham.Include(s => s.MaDmNavigation);
+
+            //const int pageSize = 8;
+            //if (pg < 1)
+            //    pg = 1;
+
+            //var pager = new Pager(query.Count(), pg, pageSize);
+            //int recSkip = (pg - 1) * pageSize;
+            //var data = await query.Skip(recSkip).Take(pager.PageSize).ToListAsync();
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["GiaSortParm"] = sortOrder == "Gia" ? "gia_desc" : "Gia";
+            ViewData["QuantitySortParm"] = sortOrder == "SoLuong" ? "soluong_desc" : "SoLuong";
+            var data = from p in _context.Sanpham.Include(p => p.MaDmNavigation)
+                       select p;
 
             const int pageSize = 8;
             if (pg < 1)
                 pg = 1;
 
-            var pager = new Pager(query.Count(), pg, pageSize);
+            var pager = new Pager(data.Count(), pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
-            var data = await query.Skip(recSkip).Take(pager.PageSize).ToListAsync();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                data = data.Where(p => p.Ten.Contains(searchString));
+            }
+            if(searchString != null)
+            {
+                pg = 1;
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    data = data.OrderByDescending(p => p.Ten);
+                    break;
+                case "Gia":
+                    data = data.OrderBy(p => p.GiaBan);
+                    break;
+                case "gia_desc":
+                    data = data.OrderByDescending(p => p.GiaBan);
+                    break;
+                case "SoLuong":
+                    data = data.OrderBy(p => p.SoLuong);
+                    break;
+                case "soluong_desc":
+                    data = data.OrderByDescending(p => p.SoLuong);
+                    break;
+                default:
+                    data = data.OrderBy(p => p.Ten);
+                    break;
+            }
 
-           
-
-            return View(data);
+            return View(await data.Skip(recSkip).Take(pager.PageSize).ToListAsync());
 
 
         }

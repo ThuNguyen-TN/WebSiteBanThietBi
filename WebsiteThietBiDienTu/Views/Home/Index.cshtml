@@ -12,57 +12,88 @@
 <partial name="_carousel" />
 <!-- Section-->
 <h3 class="text-center">Tất cả các sản phẩm</h3>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            @foreach (var item in Model)
-            {
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        @if (item.GiaGoc > item.GiaBan)
-                        {
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
-                        }
+<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col mb-5">
+            <div class="card h-100">
+                <!-- Sale badge-->
+                @if (item.GiaGoc > item.GiaBan)
+                {
+                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
+                }
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
+                    <img class="card-img-top" src="/images/products/@item.HinhAnh" alt="..." />
+                </a>
+
+                <!-- Product image-->
+                <!-- Product details-->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <!-- Product name-->
                         <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
-                            <img class="card-img-top" src="/images/products/@item.HinhAnh" alt="..." />
+                            <h5 class="fw-bolder">@item.Ten</h5>
                         </a>
-
-                        <!-- Product image-->
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
-                                    <h5 class="fw-bolder">@item.Ten</h5>
-                                </a>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        Lượt mua: @item.LuotMua
-                                    </div>
-                                    <!-- Product price-->
-                                    @if (item.GiaBan != item.GiaGoc)
-                                    {
-
-                                        <span class="text-muted text-decoration-line-through">@item.GiaGoc VND</span>
-                                        <span class="text-danger fw-bolder">@item.GiaBan VND</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-danger fw-bolder">@item.GiaBan VND</span>
-                                    }
-                            </div>
+                        <!-- Product reviews-->
+                        <div class="d-flex justify-content-center small text-warning mb-2">
+                            Lượt mua: @item.LuotMua
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.MaMh">Chọn Mua</a></div>
+                        <!-- Product price-->
+                        @if (item.GiaBan != item.GiaGoc)
+                        {
+
+                            <span class="text-muted text-decoration-line-through">@item.GiaGoc VND</span>
+                            <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger fw-bolder">@item.GiaBan VND</span>
+                        }
+                    </div>
+                </div>
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.MaMh">Chọn Mua</a></div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
+<partial name="_pager" model="@pager" />
+
+<h3 class="text-center">Tin tức nổi bật</h3>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var news in (List<Tintuc>)ViewBag.tintuc)
+        {
+                
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="d-flex">
+                            <div class="col-md-4">
+                                <img src="/images/news/@news.HinhAnh" width="100%" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body justify-content-center">
+                                    <h5 class="card-title"><a asp-action="TinTuc" asp-route-id="@news.MaTin">@news.TieuDe</a></h5>
+                                    <p class="card-text">Tom tat tin: @news.TomTat</p>
+                                    <p class="card-text">@news.NgayDang</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            }
+         }
+
+    </div>
+
+</div>
 
 
-        </div>
-        <partial name="_pager" model="@pager" />
-            
-    
 
 

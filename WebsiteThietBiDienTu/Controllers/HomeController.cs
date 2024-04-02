@@ -41,6 +41,7 @@ namespace WebsiteThietBiDienTu.Controllers
                 ViewBag.nhanvien = _context.Nhanvien.FirstOrDefault(n => n.Email == HttpContext.Session.GetString("nhanvien"));
             }
 
+            ViewBag.tintuc = _context.Tintuc.ToList();
             
         }
         // GET: Home
@@ -67,24 +68,7 @@ namespace WebsiteThietBiDienTu.Controllers
             }
             ViewBag.search = data;
             return View(data);
-            //var query = _context.Sanpham.AsQueryable();
-            //if (pg < 1)
-            //   pg = 1;
-
-            //if(search != null && search != "")
-            //{
-            //    query = _context.Sanpham.Where(p => p.Ten.Contains(search)).AsQueryable();
-            //}
-
-            //int resCount = query.Count();
-
-            //int recSkip = (pg - 1) * pageSize;
-
-            //List<Sanpham> resSanPham = query.Skip(recSkip).Take(pageSize).ToList();
-
-            //Pager SearchPager = new Pager(resCount, pg, pageSize);
-
-            //View
+           
         }
 
         // GET: Home/Details/5
@@ -463,21 +447,45 @@ namespace WebsiteThietBiDienTu.Controllers
             return View();
         }
 
-        public IActionResult TinTuc()
+        public async Task<IActionResult> TinTuc(int? id)
+        { 
+            GetInfo();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var tintuc = await _context.Tintuc
+                .FirstOrDefaultAsync(m => m.MaTin == id);
+            if (tintuc == null)
+            {
+                return NotFound();
+            }           
+            return View(tintuc);
+        }
+        public IActionResult TrangTinTuc()
         {
             GetInfo();
             return View();
         }
-        
-        public async Task<IActionResult> GetOrderDetail()
+        //public async Task<IActionResult> GetOrderDetail()
+        //{
+        //    int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
+        //    GetInfo();
+        //    var applicationDbContext = _context.Hoadon
+        //        .Where(p => p.MaKh == makh)
+        //        .Include(m => m.MaDcNavigation);
+        //    return View(await applicationDbContext.ToListAsync());
+        //}
+        public IActionResult LienHe()
         {
-            int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
             GetInfo();
-            var applicationDbContext = _context.Hoadon
-                .Where(p => p.MaKh == makh)
-                .Include(m => m.MaDcNavigation);
-            return View(await applicationDbContext.ToListAsync());
+            return View();
         }
-
+        public IActionResult About()
+        {
+            GetInfo();
+            return View();
+        }
     }
 }
