@@ -83,7 +83,7 @@
                                         @Html.DisplayFor(modelItem => item.SoLuong)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.MoTa)
+                                        @Html.Raw(item.MoTa)
                                     </td>
                                     <td>
                                         <img src="~/images/products/@Html.DisplayFor(modelItem => item.HinhAnh)" class="img-thumbnail" width="100" />
@@ -98,9 +98,9 @@
                                         @Html.DisplayFor(modelItem => item.MaDmNavigation.Ten)
                                     </td>
                                     <td>
-                                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.MaDm">Sửa</a>
-                                        <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.MaDm">Chi Tiết</a>
-                                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaDm">Xóa</a>
+                                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.MaMh">Sửa</a>
+                                        <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.MaMh">Chi Tiết</a>
+                                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaMh">Xóa</a>
                                     </td>
 
                                 </tr>
@@ -120,7 +120,7 @@
 
 
 </div>
-<div class="container">
+@*<div class="container">
 
     @if (pager.TotalItems > 0)
     {
@@ -151,11 +151,6 @@
             }
         </ul>
     }
-
-
-
-
-
-</div>
+</div>*@
 
 

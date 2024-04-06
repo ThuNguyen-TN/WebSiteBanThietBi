@@ -18,15 +18,15 @@
                         @if (Model.GiaBan != Model.GiaGoc)
                         {
 
-                            <span class="text-muted text-decoration-line-through">@Model.GiaGoc VND</span>
-                            <span class="text-danger fw-bolder">@Model.GiaBan VND</span>
+                            <span class="text-muted text-decoration-line-through">@Model.GiaGoc.ToString("n0").Replace(",", ".") VND</span>
+                            <span class="text-danger fw-bolder">@Model.GiaBan.ToString("n0").Replace(",", ".") VND</span>
                         }
                         else
                         {
-                            <span class="text-danger fw-bolder">@Model.GiaBan VND</span>
+                            <span class="text-danger fw-bolder">@Model.GiaBan.ToString("n0").Replace(",", ".") VND</span>
                         }
                     </div>
-                    <p class="lead">@Model.MoTa</p>
+                    <p class="lead">@Html.Raw(Model.MoTa)</p>
                     <div class="d-flex">
 
                         <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@Model.MaMh">Chọn Mua</a></div>

@@ -10,6 +10,7 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -84,6 +85,7 @@
 *::after {
   box-sizing: border-box;
 }
+
 
 @media (prefers-reduced-motion: no-preference) {
   :root {
@@ -3619,13 +3621,13 @@ textarea.form-control-lg {
 }
 
 .nav-link {
-  display: block;
-  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-  font-size: var(--bs-nav-link-font-size);
-  font-weight: var(--bs-nav-link-font-weight);
-  color: var(--bs-nav-link-color);
-  text-decoration: none;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    display: block;
+    padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+    font-size: var(--bs-nav-link-font-size);
+    font-weight: var(--bs-nav-link-font-weight);
+    color: var(--bs-nav-link-color);
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
@@ -3633,7 +3635,7 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: var(--bs-nav-link-hover-color);
+    color: var(--bs-nav-link-hover-color);
 }
 .nav-link.disabled {
   color: var(--bs-nav-link-disabled-color);
@@ -10824,5 +10826,4 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-
 

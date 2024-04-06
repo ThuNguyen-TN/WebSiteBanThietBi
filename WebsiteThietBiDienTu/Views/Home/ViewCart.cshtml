@@ -22,11 +22,11 @@
             <tr class="align-middle">
                 <td>@(stt++)</td>
                 <td>
-                    <img src="~/images/products/@(i.SanPham.HinhAnh)" class="img-thumbnail" width="50" />
+                    <img src="~/images/products/@(i.SanPham.HinhAnh)" class="img-thumbnail" width="70"/>
                     @(i.SanPham.Ten)
                 </td>
                 <td>
-                    @(i.SanPham.GiaBan.ToString("n0"))VND
+                    @(i.SanPham.GiaBan.ToString("n0").Replace(",", ".")) VNĐ
                 </td>
 
                 <td>
@@ -62,7 +62,7 @@
                     </form>
                 </td>
                 <td><a asp-action="RemoveItem" asp-route-id="@i.SanPham.MaMh" class="btn btn-danger">Xóa</a></td>
-                <td>@(thanhtien.ToString("n0"))đ</td>
+                <td>@(thanhtien.ToString("n0").Replace(",", ".")) VNĐ</td>
 
             </tr>
         }
@@ -71,7 +71,7 @@
                 Thanh tien
             </td>
             <td class="text-danger fw-bold">
-                @tongtien.ToString("n0")VND
+                @tongtien.ToString("n0").Replace(",", ".") VNĐ
             </td>
         </tr>
     </table>

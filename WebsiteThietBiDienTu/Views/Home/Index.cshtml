@@ -10,86 +10,115 @@
     }
 }
 <partial name="_carousel" />
+<div class="container py-md-5">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <ul class="nav nav-tabs justify-content-center mx-auto" id="myTab" role="tablist">
+                @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
+                {
+
+                    <li class="nav-item mx-auto py-md-2"><a asp-action="CategoryName" asp-route-id="@(i.MaDm)" class="nav-link bg-primary text-white link-underline-opacity-50-hover py-md-3 rounded" data-toggle="tab" role="tab">@i.Ten</a></li>
+                }
+
+            </ul>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+
 <!-- Section-->
-<h3 class="text-center">Tất cả các sản phẩm</h3>
-<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center bg-light">
     @foreach (var item in Model)
     {
-        <div class="col mb-5">
-            <div class="card h-100">
-                <!-- Sale badge-->
-                @if (item.GiaGoc > item.GiaBan)
-                {
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
-                }
-                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
-                    <img class="card-img-top" src="/images/products/@item.HinhAnh" alt="..." />
-                </a>
+        @if (item.GiaBan == item.GiaGoc)
+        {
+            <div class="col mb-5">
+                <div class="card h-100 border border-primary shadow bg-light">
+                    <!-- Sale badge-->
+                    @*@if (item.GiaGoc > item.GiaBan)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
+                        }*@
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
+                        <img class="card-img-top rounded border-primary" src="/images/products/@item.HinhAnh" height="80%" />
+                    </a>
 
-                <!-- Product image-->
-                <!-- Product details-->
-                <div class="card-body p-4">
-                    <div class="text-center">
-                        <!-- Product name-->
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
-                            <h5 class="fw-bolder">@item.Ten</h5>
-                        </a>
-                        <!-- Product reviews-->
-                        <div class="d-flex justify-content-center small text-warning mb-2">
-                            Lượt mua: @item.LuotMua
+                    <!-- Product image-->
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh" class="text-decoration-none">
+                                <h5 class="fw-bolder">@item.Ten</h5>
+                            </a>
+                            <!-- Product reviews-->
+                            @*<div class="d-flex justify-content-center small text-warning mb-2">
+                                    Lượt mua: @item.LuotMua
+                                </div>*@
+                            <!-- Product price-->
+                            @if (item.GiaBan != item.GiaGoc)
+                            {
+                                <div>
+                                    <span class="text-muted text-decoration-line-through">@item.GiaGoc.ToString("n0").Replace(",", ".") VNĐ</span>
+                                </div>
+                                <div>
+                                    <span class="text-danger fw-bolder">@item.GiaBan.ToString("n0").Replace(",", ".") VNĐ</span>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <span class="text-danger fw-bolder">@item.GiaBan.ToString("n0").Replace(",", ".") VNĐ</span>
+                            }
                         </div>
-                        <!-- Product price-->
-                        @if (item.GiaBan != item.GiaGoc)
-                        {
-
-                            <span class="text-muted text-decoration-line-through">@item.GiaGoc VND</span>
-                            <span class="text-danger fw-bolder">@item.GiaBan VND</span>
-                        }
-                        else
-                        {
-                            <span class="text-danger fw-bolder">@item.GiaBan VND</span>
-                        }
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.MaMh">Chọn Mua</a></div>
                     </div>
                 </div>
-                <!-- Product actions-->
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.MaMh">Chọn Mua</a></div>
-                </div>
             </div>
-        </div>
-    }
 
+        }
+
+    }
 
 </div>
 <partial name="_pager" model="@pager" />
-
-<h3 class="text-center">Tin tức nổi bật</h3>
-<div class="container-fluid">
-    <div class="row">
-        @foreach (var news in (List<Tintuc>)ViewBag.tintuc)
-        {
-                
-                <div class="col-md-6">
-                    <div class="card mb-3">
-                        <div class="d-flex">
-                            <div class="col-md-4">
-                                <img src="/images/news/@news.HinhAnh" width="100%" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body justify-content-center">
-                                    <h5 class="card-title"><a asp-action="TinTuc" asp-route-id="@news.MaTin">@news.TieuDe</a></h5>
-                                    <p class="card-text">Tom tat tin: @news.TomTat</p>
-                                    <p class="card-text">@news.NgayDang</p>
+<!-- Carousel -->
+<div class="container py-3 bg-light">
+    <h3 class="py-4 text-center">Sales</h3>
+    <div id="demo" class="carousel slide shadow" data-bs-ride="carousel">
+        <div class="carousel-inner justify-content-center">
+            @foreach (var group in Model.Where(x => x.GiaBan != x.GiaGoc).Select((value, index) => new { Value = value, Index = index }).GroupBy(x => x.Index / 3))
+            {
+                <div class="carousel-item @if (group.Key == 0) { <text>active</text> }">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        @foreach (var item in group)
+                        {
+                            <div class="col-4 col-xs-6">
+                                <div class="card" style="width: 15rem; height:100%;">
+                                    <img class="card-img-top rounded border-primary" src="/images/products/@item.Value.HinhAnh" height="80%">
+                                    <div class="card-body justify-content-center align-items-center">
+                                        <h5 class="card-title">@item.Value.Ten</h5>
+                                        <p class="card-text">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>
+                                        <a class="btn btn-primary" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Value.MaMh">Chọn mua</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
-         }
-
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-primary"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-primary"></span>
+        </button>
     </div>
 
 </div>

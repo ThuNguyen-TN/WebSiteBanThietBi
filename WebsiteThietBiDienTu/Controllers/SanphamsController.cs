@@ -46,20 +46,20 @@ namespace WebsiteThietBiDienTu.Controllers
             var data = from p in _context.Sanpham.Include(p => p.MaDmNavigation)
                        select p;
 
-            const int pageSize = 8;
-            if (pg < 1)
-                pg = 1;
+            //const int pageSize = 8;
+            //if (pg < 1)
+            //    pg = 1;
 
-            var pager = new Pager(data.Count(), pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
+            //var pager = new Pager(data.Count(), pg, pageSize);
+            //int recSkip = (pg - 1) * pageSize;
             if (!String.IsNullOrEmpty(searchString))
             {
                 data = data.Where(p => p.Ten.Contains(searchString));
             }
-            if(searchString != null)
-            {
-                pg = 1;
-            }
+            //if(searchString != null)
+            //{
+            //    pg = 1;
+            //}
             switch (sortOrder)
             {
                 case "name_desc":
@@ -82,7 +82,7 @@ namespace WebsiteThietBiDienTu.Controllers
                     break;
             }
 
-            return View(await data.Skip(recSkip).Take(pager.PageSize).ToListAsync());
+            return View(data);
 
 
         }

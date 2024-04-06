@@ -12,10 +12,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/Home_Page/css/styles.css" rel="stylesheet" />
+
+    @*<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">*@
+    @*<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />*@
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">*@
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!--CKEdittor-->
+    
 </head>
 <body>
     <div class="navbar navbar-expand-lg navbar-light bg-dark">
@@ -25,7 +36,7 @@
             <div class="col-lg-6 col-md-4 col-12 justify-content-center">
                 <form class="form-inline d-flex mx-auto" asp-action="Index">
                     <input class="form-control ml-sm-2 mx-auto" type="text" placeholder="Search" name="search">
-                    <button class="btn btn-primary" type="submit">Search</button>
+                    <span><button class="btn btn-primary" type="submit">Search</button></span>
                 </form>
             </div>
             <div class="col-lg-3 col-md-4 col-12">
@@ -35,17 +46,15 @@
         <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Customer" asp-controller="Home">
             <i class="bi bi-person-circle"></i>
             @ViewBag.khachhang.Ten
-        </a>
- }
-    else
-    {
-<li class="nav-item">
-    <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Login">
-        <i class="bi bi-person-circle"></i>
-        Đăng Nhập
-    </a>
-</li>
-}
+        </a> }
+                    else
+                    {
+        <li class="nav-item">
+            <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Login">
+                <i class="bi bi-person-circle"></i>
+                Đăng Nhập
+            </a>
+        </li>}
 
                 </ul>
             </div>
@@ -72,10 +81,11 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
                                     {
-                                        <li><a asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>}
+                        <li><a class="drop-item" asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>
+}
                                 </ul>
                             </li>
-                            <li class="nav-item text-dark"><a class="nav-link text-dark fw-bold link-primary" href="#!">Giới thiệu</a></li>
+                            <li class="nav-item text-dark"><a class="nav-link text-dark fw-bold link-primary" asp-action="About">Giới thiệu</a></li>
                             <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" asp-action="TrangTinTuc">Tin Tức</a></li>
                             <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" asp-action="LienHe">Liên Hệ</a></li>
                         </ul>
@@ -83,7 +93,7 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-12">
 
-                    <a class="btn btn-outline-primary bg-primary text-white">
+                    <a class="btn btn-outline-primary bg-primary text-white" asp-action="ViewCart">
                         <i class="bi-cart-fill me-1"></i>
                         Giỏ Hàng
                         <span class="badge bg-dark text-white ms-1 rounded-pill">@ViewData["soluong"]</span>
@@ -94,46 +104,18 @@
         </nav>
     </div>
 
-    <section class="py-5">
+    <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
             @RenderBody()
         </div>
     </section>
-   
-    <!-- Footer-->
-    @*<footer class="py-5 bg-dark">
-            <div class="row mx-2">
-                <div class="col-6 text-white">
-                    <h4>
-                        MoBiFone
-                    </h4>
-                    <p>
+    <div class="container">
+        <div class="row py-5">
 
-                        <b><i>HotLine:</i></b>077 924 9999<br>
-                        <b><i>Email:</i></b>mobifoneaglx@gmail.com<br>
-                        <b><i>Địa chỉ:</i></b>93, Trần Hưng Đạo, Mỹ Quý Long Xuyên, An Giang<br>
-
-                    </p>
-                </div>
-                <div class="col-3 text-muted">
-                    <h4>Kết nối mobifone</h4>
-                    <a href="https://www.facebook.com/mobifonetinhangiang/" class="list-group-item"><i class="bi bi-facebook"></i></a>
-                    <a href="https://play.google.com/store/apps/details?id=vms.com.vn.mymobifone" class="list-group-item"><i class="bi bi-android2"></i></a>
-                    <a href="https://zalo.me/0779249999" class="list-group-item">zalo</a>
-
-                </div>
-                <div class="col-3 text-muted">
-                    <h4>DỊCH VỤ KHÁCH HÀNG</h4>
-                    <a href="#" class="list-group-item">Giới thiệu</a>
-                    <a href="#" class="list-group-item">Liên hệ với chúng tôi</a>
-                </div>
-            </div>
-            <hr>
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Mobifone</p></div>
-        </footer>*@
-
-    <footer class="py-5 bg-dark text-white">
-        <div class="text-center mb-5"><a class="text-warning" href="#top"><i class="bi bi-chevron-up" style="font-size: 3rem; font-weight: bold; color:white;"></i></a></div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white p-3">
+        @*<div class="text-center mb-5"><a class="text-warning" href="#top"><i class="bi bi-chevron-up" style="font-size: 3rem; font-weight: bold; color:white;"></i></a></div>*@
 
         <div class="container">
             <div class="row">
@@ -142,38 +124,57 @@
                         MoBiFone
                     </h4>
                     <p>
-                        <b><i>HotLine:</i></b>077 924 9999<br>
-                        <b><i>Email:</i></b>mobifoneaglx@gmail.com<br>
-                        <b><i>Địa chỉ:</i></b>93, Trần Hưng Đạo, Mỹ Quý Long Xuyên, An Giang<br>
+                        <b><i>HotLine:</i></b> 077 924 9999<br>
+                        <b><i>Email:</i></b> mobifoneaglx@gmail.com<br>
+                        <b><i>Địa chỉ:</i></b> 93, Trần Hưng Đạo, Mỹ Quý Long Xuyên, An Giang<br>
 
                     </p>
                 </div>
-                <div class="col-3 text-muted">
-                    <h4>Kết nối mobifone</h4>
-                    <ul class="navbar-nav justify-content-center mx-auto">
-                        <li class="nav-item"><a class="nav-link text-white fw-bold link-primary" href="https://www.facebook.com/mobifonetinhangiang/"><i class="bi bi-facebook bg-white"></i></a></li>
-                        <li class="nav-item"> <a class="nav-link text-white fw-bold link-primary" href="https://www.facebook.com/mobifonetinhangiang/"><i class="bi bi-android2 bg-white"></i></a></li>
+                <div class="col-3 text-muted justify-content-start">
+                    <h4 class="text-white">Kết nối mobifone</h4>
+                    <ul class="nav nav-tabs justify-content-lg-start">
                         <li class="nav-item">
-                            <a href="https://zalo.me/0779249999" class="list-group-item nav-link text-dark fw-bold link-primary">
+                            <a class="nav-link" href="https://www.facebook.com/mobifonetinhangiang/">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 40px; height: 40px;">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://play.google.com/store/apps/details?id=vms.com.vn.mymobifone">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSJ6nfCD5Sq5Na4NFEIAy6GXxrHiuTSQfV8qrRngmqxQ&s" alt="Android" style="width: 40px; height: 40px;">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://zalo.me/0779249999">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/1024px-Icon_of_Zalo.svg.png" alt="Zalo" style="width: 40px; height: 40px;">
                             </a>
                         </li>
                     </ul>
+
+
                 </div>
                 <div class="col-3 text-muted">
-                    <h4>DỊCH VỤ KHÁCH HÀNG</h4>
+                    <h4 class="text-white">DỊCH VỤ KHÁCH HÀNG</h4>
 
-                    <a class="list-group-item">Giới thiệu</a>
-                    <a class="list-group-item">Liên hệ với chúng tôi</a>
+                    <a class="list-group-item text-white">Giới thiệu</a>
+                    <a class="list-group-item text-white">Liên hệ với chúng tôi</a>
                 </div>
             </div>
             <hr>
-            <p class="m-0 text-center text-warning fw-bolder">Copyright &copy; MobiFone</p>
+            <p class="m-0 text-center text-white fw-bolder">Copyright &copy; Nguyễn Thị Cẩm Thu</p>
         </div>
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Core theme JS-->
     <script src="/Home_Page/js/scripts.js"></script>
+
+    <!--Mobi-->
+    <!--<script src="https://apitest.mobifone.vn/js/main.min.js?v=1.45"></script>
+    <script src="https://apitest.mobifone.vn/js/customs/custom-main.js?v=1.45"></script>
+
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfH2m8aAAAAAGNxyU62qFJWmNRHlTpBhed1DyH1"></script>-->
+
+
 </body>
 </html>
