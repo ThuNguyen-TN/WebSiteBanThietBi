@@ -1,39 +1,10 @@
 ﻿@model IEnumerable<WebsiteThietBiDienTu.Models.Sanpham>
-@*@{
-        ViewData["Title"] = "HomePage";
-        Pager pager = new Pager();
-        int pageNo = 0;
-        if (ViewBag.Pager != null)
-        {
-            pager = ViewBag.Pager;
-            pageNo = pager.CurrentPage;
-        }
-    }*@
-
-<partial name="_carousel" />
-<div class="container py-md-5">
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <ul class="nav nav-tabs justify-content-center mx-auto" id="myTab" role="tablist">
-                @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
-                {
-
-                    <li class="nav-item mx-auto py-md-2"><a asp-action="CategoryName" asp-route-id="@(i.MaDm)" class="nav-link bg-primary text-white link-underline-opacity-50-hover py-md-3 rounded" data-toggle="tab" role="tab">@i.Ten</a></li>
-                }
-
-            </ul>
-        </div>
-        <div class="col-md-3"></div>
-    </div>
-</div>
 
 
-<!-- Section-->
-<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center bg-light">
-    @foreach (var item in Model)
-    {
-        @if (item.GiaBan == item.GiaGoc)
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center bg-light">
+        @foreach (var item in Model)
         {
             <div class="col mb-5">
                 <div class="card h-100 border border-primary shadow bg-light">
@@ -83,17 +54,9 @@
             </div>
         }
 
-    }
-
-</div>
-<div class="container">
-    <div class="row">
-
     </div>
-</div>
-@*<partial name="_pager" model="@pager" />*@
-<!-- Carousel -->
-<div>
-    @await Html.PartialAsync("CardCarousel")
-</div>
-
+}
+else
+{
+    <h2 class="text-center">Không tìm thấy sản phẩm</h2>
+}

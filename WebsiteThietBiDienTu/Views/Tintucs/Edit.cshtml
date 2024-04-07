@@ -4,8 +4,22 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Edit</h1>
+@section Scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+    <script>
+    ClassicEditor
+        .create(document.querySelector('#txtNoiDung'), {
+            // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+        })
+        .then(editor => {
+            window.editor = editor;
+        })
+        .catch(err => {
+            console.error(err.stack);
+        });
+    </script>
+}
+<h1>Chỉnh sửa</h1>
 
 <h4>Tintuc</h4>
 <hr />
@@ -26,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="NoiDung" class="control-label"></label>
-                <input asp-for="NoiDung" class="form-control" />
+                <textarea id="txtNoiDung" asp-for="NoiDung" class="form-control" rows="35"></textarea>
                 <span asp-validation-for="NoiDung" class="text-danger"></span>
             </div>
             <div class="form-group">

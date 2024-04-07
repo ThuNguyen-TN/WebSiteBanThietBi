@@ -45,32 +45,41 @@ namespace WebsiteThietBiDienTu.Controllers
             
         }
         // GET: Home
-        public async Task<IActionResult> Index(int pg = 1,string search="")
+        public async Task<IActionResult> Index(int pg = 1, string search = "")
         {
             GetInfo();
-            var applicationDbContext = _context.Sanpham.Include(s => s.MaDmNavigation);
+         
+            var data = from p in _context.Sanpham.Include(p => p.MaDmNavigation)
+                       select p;
 
-
-            const int pageSize = 8;
-            if (pg < 1)
-                pg = 1;
-
-            int resCount = applicationDbContext.Count();
-            var pager = new Pager(resCount, pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
-            var data = applicationDbContext.Skip(recSkip).Take(pager.PageSize).ToList();
-
-            this.ViewBag.Pager = pager;
-
-            if(search != null && search != "")
+            if (!String.IsNullOrEmpty(search))
             {
-                data = _context.Sanpham.Where(p => p.Ten.Contains(search)).ToList();
-            }
-            ViewBag.search = data;
-            return View(data);
-           
-        }
+                data = data.Where(p => p.Ten.Contains(search));
+                var searchResult = await data.ToListAsync();
 
+                if (searchResult.Any()) // Kiểm tra xem có kết quả tìm kiếm hay không
+                {
+                    return View("SearchResultView", searchResult); // Trả về view tìm kiếm nếu có kết quả
+                }
+                else
+                {
+                    return View("SearchResultView");
+                }
+            }
+
+            return View(await data.ToListAsync());
+
+        }
+        public IActionResult SearchResultView()
+        {
+            GetInfo();
+            return View();
+        }
+        public IActionResult CardCarousel()
+        {
+            GetInfo();
+            return View();
+        }
         // GET: Home/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -252,10 +261,20 @@ namespace WebsiteThietBiDienTu.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string matkhau)
         {
+            if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(matkhau))
+            {
+                // Hiển thị một thông báo lỗi cho người dùng
+                ModelState.AddModelError(string.Empty, "Email và mật khẩu là bắt buộc.");
+
+                // Hoặc redirect đến trang login với thông báo lỗi
+                return RedirectToAction(nameof(Login));
+            }
+            
             var kh = await _context.Khachhang
                 .FirstOrDefaultAsync(m => m.Email == email);
             var nv = await _context.Nhanvien
                 .FirstOrDefaultAsync(m => m.Email == email);
+
             if (kh != null && _passwordHasher.VerifyHashedPassword(kh, kh.MatKhau, matkhau) == PasswordVerificationResult.Success)
             {
                 HttpContext.Session.SetString("khachhang", kh.MaKh.ToString());
@@ -460,7 +479,8 @@ namespace WebsiteThietBiDienTu.Controllers
             if (tintuc == null)
             {
                 return NotFound();
-            }           
+            }
+            ViewBag.tintuc = _context.Tintuc.Where(m => m.MaTin != id).ToList();
             return View(tintuc);
         }
         public IActionResult TrangTinTuc()

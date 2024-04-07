@@ -225,3 +225,5 @@ D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Tintucs\Index.cshtml.g.cs
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\TrangTinTuc.cshtml.g.cs
 D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\CardCarousel.cshtml.g.cs
+D:\CV_ThucTap\ThietBiDienThu\WebsiteThietBiDienTu\WebsiteThietBiDienTu\obj\Debug\netcoreapp3.1\Razor\Views\Home\SearchResultView.cshtml.g.cs

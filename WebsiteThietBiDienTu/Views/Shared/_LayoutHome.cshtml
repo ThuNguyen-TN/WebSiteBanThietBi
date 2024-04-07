@@ -25,8 +25,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!--CKEdittor-->
+    <!--Card-->
     
+
 </head>
 <body>
     <div class="navbar navbar-expand-lg navbar-light bg-dark">
@@ -46,15 +47,17 @@
         <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Customer" asp-controller="Home">
             <i class="bi bi-person-circle"></i>
             @ViewBag.khachhang.Ten
-        </a> }
-                    else
-                    {
-        <li class="nav-item">
-            <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Login">
-                <i class="bi bi-person-circle"></i>
-                Đăng Nhập
-            </a>
-        </li>}
+        </a>
+ }
+    else
+    {
+<li class="nav-item">
+    <a class="nav-link text-white fw-bold link-primary" aria-current="page" asp-action="Login">
+        <i class="bi bi-person-circle"></i>
+        Đăng Nhập
+    </a>
+</li>
+}
 
                 </ul>
             </div>
@@ -81,8 +84,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
                                     {
-                        <li><a class="drop-item" asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>
-}
+                        <li><a class="drop-item" asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>}
                                 </ul>
                             </li>
                             <li class="nav-item text-dark"><a class="nav-link text-dark fw-bold link-primary" asp-action="About">Giới thiệu</a></li>
@@ -175,6 +177,6 @@
 
     <script src="https://www.google.com/recaptcha/api.js?render=6LfH2m8aAAAAAGNxyU62qFJWmNRHlTpBhed1DyH1"></script>-->
 
-
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

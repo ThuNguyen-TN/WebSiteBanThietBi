@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebsiteThietBiDienTu.Models.Sanpham>
+
+<div class="container py-3">
+    <h3 class="py-4 text-center">SẢN PHẨM GIẢM GIÁ</h3>
+    <div id="demo" class="carousel slide shadow" data-bs-ride="carousel">
+        <div id="carousel-inner" class="carousel-inner justify-content-center bg-light">
+            @foreach (var group in Model.Where(x => x.GiaBan != x.GiaGoc).Select((value, index) => new { Value = value, Index = index }).GroupBy(x => x.Index / 3))
+
+            {
+                <div class="carousel-item @if (group.Key == 0) { <text>active</text> } bg-light">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        @foreach (var item in group)
+                        {
+                            <div class="col-4 col-xs-6">
+                                <div class="card" style="width: 15rem; height:100%;">
+                                    <img class="card-img-top rounded border-primary" src="/images/products/@item.Value.HinhAnh" height="80%">
+                                    <div class="card-body justify-content-center align-items-center">
+                                        <h5 class="card-title">@item.Value.Ten</h5>
+                                        <p class="card-text">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>
+                                        <a class="btn btn-primary" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Value.MaMh">Chọn mua</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-primary"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-primary"></span>
+        </button>
+    </div>
+
+</div>
