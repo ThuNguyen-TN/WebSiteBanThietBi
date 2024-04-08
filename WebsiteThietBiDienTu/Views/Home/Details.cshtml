@@ -12,9 +12,9 @@
                 <div class="col-md-4"><img class="card-img-top mb-5 mb-md-0 img-thumbnail" height="150px" src="/images/products/@Model.HinhAnh" alt="..." />
                 </div>
                 <div class="col-md-6">
-                    <div class="small mb-1">Danh mục sản phẩm: @Model.MaDmNavigation.Ten</div>
+                    <div class="small mb-1 fw-bold fs-2">Danh mục sản phẩm: @Model.MaDmNavigation.Ten</div>
                     <h1 class="display-5 fw-bolder">@Model.Ten</h1>
-                    <div class="fs-5 mb-5">
+                    <div class="fs-5 mb-2">
                         @if (Model.GiaBan != Model.GiaGoc)
                         {
 
@@ -23,7 +23,7 @@
                         }
                         else
                         {
-                            <span class="text-danger fw-bolder">@Model.GiaBan.ToString("n0").Replace(",", ".") VND</span>
+                            <span class="text-danger fw-bolder">Giá: @Model.GiaBan.ToString("n0").Replace(",", ".") VND</span>
                         }
                     </div>
                     <p class="lead">@Html.Raw(Model.MoTa)</p>

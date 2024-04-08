@@ -5,56 +5,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TieuDe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TomTat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoiDung)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HinhAnh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NgayDang)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TieuDe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TomTat)
-            </td>
-            <td>
-                @Html.Raw(item.NoiDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HinhAnh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayDang)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaTin">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaTin">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaTin">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tin tức</h1>
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Danh sách tin tức</h6>
+            </div>
+            <div class="card-body">
+                <form class="py-auto mx-auto" asp-action="Index" method="get">
+                    <input type="text" name="searchString" placeholder="Từ khóa tìm kiếm">
+                    <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button> |
+                    <a asp-action="Index">Xóa tìm kiếm</a>
+                </form>
+                <div class="table-responsive">
+
+                    <table class="table table-bordered">
+                        <a class="btn btn-outline-primary" asp-action="Create" asp-controller="Tintucs">Thêm Tin Tức</a>
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    Tiêu đề
+                                </th>
+                                <th>
+                                    Tóm tắt
+                                </th>
+                                <th>
+                                    Nội dung
+                                </th>
+                                <th>
+                                    Hình ảnh
+                                </th>
+                                <th>
+                                    Ngày đăng
+                                </th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TieuDe)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TomTat)
+                                    </td>
+                                    <td>
+                                        @Html.Raw(item.NoiDung)
+                                    </td>
+                                    <td>
+                                        <img src="/images/news/@Html.DisplayFor(modelItem => item.HinhAnh)" class="img-thumbnail" width="80%"/>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NgayDang)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.MaTin">Sửa</a>
+                                        <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.MaTin">Chi Tiết</a>
+                                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaTin">Xóa</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+</div>

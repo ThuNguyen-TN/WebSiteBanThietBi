@@ -36,21 +36,22 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ten)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DienThoai)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td>
-                                    <a class="btn btn-outline-primary mx-auto" asp-action="Details" asp-route-id="@item.MaKh">Details</a> 
-                                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaKh">Delete</a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ten)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DienThoai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            
+                            <td>
+                                <a class="btn btn-outline-primary mx-auto" asp-action="Details" asp-route-id="@item.MaKh">Details</a>
+                                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaKh">Delete</a>
+                            </td>
+                        </tr>
                         }
 
                     </tbody>

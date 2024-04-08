@@ -45,7 +45,7 @@ namespace WebsiteThietBiDienTu.Controllers
             
         }
         // GET: Home
-        public async Task<IActionResult> Index(int pg = 1, string search = "")
+        public async Task<IActionResult> Index(string search = "")
         {
             GetInfo();
          
@@ -150,12 +150,40 @@ namespace WebsiteThietBiDienTu.Controllers
         // Cho hàng vào giỏ
         public async Task<IActionResult> AddToCart(int id)
         {
-            var mathang = await _context.Sanpham
-                .FirstOrDefaultAsync(m => m.MaMh == id);
+            //var mathang = await _context.Sanpham
+            //    .FirstOrDefaultAsync(m => m.MaMh == id);
+            //if (mathang == null)
+            //{
+            //    return NotFound("Sản phẩm không tồn tại");
+            //}
+            //var cart = GetCartItems();
+            //var item = cart.Find(p => p.SanPham.MaMh == id);
+            //if (item != null)
+            //{
+            //    item.SoLuong++;
+            //}
+            //else
+            //{
+            //    cart.Add(new CartItem() { SanPham = mathang, SoLuong = 1 });
+            //}
+            //SaveCartSession(cart);
+
+            //return RedirectToAction(nameof(ViewCart));
+            var mathang = await _context.Sanpham.FirstOrDefaultAsync(m => m.MaMh == id);
+            
             if (mathang == null)
             {
                 return NotFound("Sản phẩm không tồn tại");
             }
+
+            // Kiểm tra xem người dùng đã đăng nhập hay chưa
+            if (HttpContext.Session.GetString("khachhang") == null || HttpContext.Session.GetString("khachhang") == " ")
+            {
+                // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                return RedirectToAction(nameof(Login));
+            }
+
+            // Nếu đã đăng nhập, tiếp tục thêm sản phẩm vào giỏ hàng
             var cart = GetCartItems();
             var item = cart.Find(p => p.SanPham.MaMh == id);
             if (item != null)

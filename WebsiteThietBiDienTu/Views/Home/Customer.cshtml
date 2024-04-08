@@ -34,9 +34,9 @@
                                                 <h5 class="card-title">Mã hóa đơn: @order.MaCthd</h5>
                                                 <p class="card-text">Tên Sản Phẩm: @order.MaMhNavigation.Ten</p>
                                                 <p class="card-text">Ngày Đặt Hàng: @order.MaHdNavigation.Ngay</p>
-                                                <p class="card-text">Đơn Giá: @order.DonGia</p>
+                                                <p class="card-text">Đơn Giá: @order.DonGia.ToString("n0").Replace(",", ".") VNĐ</p>
                                                 <p class="card-text">Số Lượng: @order.SoLuong</p>
-                                                <p class="card-text">Tổng tiền: @order.ThanhTien</p>
+                                                <p class="card-text">Tổng tiền: @order.ThanhTien.ToString("n0").Replace(",", ".") VNĐ</p>
                                                 <p class="card-text">Tình Trạng Đơn Hàng: @order.MaHdNavigation.TrangThai</p>
                                             </div>
                                         </div>

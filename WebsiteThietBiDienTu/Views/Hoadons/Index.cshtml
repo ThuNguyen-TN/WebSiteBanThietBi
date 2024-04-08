@@ -19,11 +19,11 @@
                 Cập nhật trạng thái
             </th>
             <th>
-                Trạng Thái Đơn Hàng               
+                Trạng Thái Đơn Hàng
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.MaKhNavigation)*@
-               Địa Chỉ
+                Địa Chỉ
             </th>
             <th>
                 Tên Khách Hàng
@@ -32,43 +32,52 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ngay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TongTien)
-            </td>
-            <td>
-                <form asp-controller="Hoadons" asp-action="UpdateStatus" method="post">
-                    <input type="hidden" name="id" value="@item.MaHd" />
-                    <select name="newStatus">
-                        <option value="Chờ xác nhận" selected="@(item.TrangThai == "Chờ xác nhận")">Chờ xác nhận</option>
-                        <option value="Đang xử lý" selected="@(item.TrangThai == "Đang xử lý")">Đang xử lý</option>
-                        <option value="Đang giao hàng" selected="@(item.TrangThai == "Đang giao hàng")">Đang giao hàng</option>
-                        <option value="Đã giao hàng" selected="@(item.TrangThai == "Đã giao hàng")">Đã giao hàng</option>
-                        <option value="Đã hủy đơn hàng" selected="@(item.TrangThai == "Đã hủy đơn hàng")">Đã hủy đơn hàng</option>
-                    </select>
-                    <button type="submit">Update</button>
-                </form>
-                @*@Html.DisplayFor(modelItem => item.TrangThai)*@
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaDcNavigation.DiaChi1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaKhNavigation.Ten)
-            </td>
-            <td>              
-                <a class="btn btn-outline-primary mx-auto" asp-action="Details" asp-route-id="@item.MaHd">Chi tiết</a>
-                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaHd">Xóa</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTien)
+                </td>
+                <td>
+                    <form asp-controller="Hoadons" asp-action="UpdateStatus" method="post">
+                        <input type="hidden" name="id" value="@item.MaHd" />
+                        <select name="newStatus">
+                            <option value="Chờ xác nhận" selected="@(item.TrangThai == "Chờ xác nhận")">Chờ xác nhận</option>
+                            <option value="Đang xử lý" selected="@(item.TrangThai == "Đang xử lý")">Đang xử lý</option>
+                            <option value="Đang giao hàng" selected="@(item.TrangThai == "Đang giao hàng")">Đang giao hàng</option>
+                            <option value="Đã giao hàng" selected="@(item.TrangThai == "Đã giao hàng")">Đã giao hàng</option>
+                            <option value="Đã hủy đơn hàng" selected="@(item.TrangThai == "Đã hủy đơn hàng")">Đã hủy đơn hàng</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                    @*@Html.DisplayFor(modelItem => item.TrangThai)*@
+                </td>
+
+                @if (item.TrangThai == null || item.TrangThai == " ")
+                {
+                    <td>
+                        Chờ xác nhận
+                    </td>
+                }
+                else
+                {
+                    <td> @Html.DisplayFor(modelItem => item.TrangThai)</td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaDcNavigation.DiaChi1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaKhNavigation.Ten)
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary mx-auto" asp-action="Details" asp-route-id="@item.MaHd">Chi tiết</a>
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.MaHd">Xóa</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

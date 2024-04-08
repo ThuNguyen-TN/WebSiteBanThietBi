@@ -22,7 +22,7 @@ namespace WebsiteThietBiDienTu.Models
         public int MaHd { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? Ngay { get; set; }
-        public int? TongTien { get; set; }
+        public int TongTien { get; set; }
         [Column("MaKH")]
         public int MaKh { get; set; }
         [Column("MaDC")]

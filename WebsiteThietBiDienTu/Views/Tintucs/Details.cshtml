@@ -5,38 +5,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1 class="mx-5">Chi tiết</h1>
 
 <div>
-    <h4>Tintuc</h4>
+    <h4 class="mx-5">Tin tức</h4>
     <hr />
-    <dl class="row">
+    <dl class="row mx-5">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TieuDe)
+            Tiêu đề
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TieuDe)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TomTat)
+           Tóm tắt
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TomTat)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NoiDung)
+            Nội dung
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NoiDung)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HinhAnh)
+           Hình ảnh
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HinhAnh)
+           <img src="/images/news/ @Html.DisplayFor(model => model.HinhAnh)"/>
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayDang)
+           Ngày đăng
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.NgayDang)
@@ -44,6 +44,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MaTin">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.MaTin" class="btn btn-outline-warning">Chỉnh sửa</a> |
     <a asp-action="Index">Back to List</a>
 </div>

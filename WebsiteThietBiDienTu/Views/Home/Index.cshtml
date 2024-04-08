@@ -19,7 +19,7 @@
                 @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
                 {
 
-                    <li class="nav-item mx-auto py-md-2"><a asp-action="CategoryName" asp-route-id="@(i.MaDm)" class="nav-link bg-primary text-white link-underline-opacity-50-hover py-md-3 rounded" data-toggle="tab" role="tab">@i.Ten</a></li>
+                    <li class="nav-item mx-auto py-md-2"><a asp-action="CategoryName" asp-route-id="@(i.MaDm)" class="nav-link bg-primary text-white fw-bold link-underline-opacity-50-hover py-md-3 rounded" data-toggle="tab" role="tab">@i.Ten</a></li>
                 }
 
             </ul>

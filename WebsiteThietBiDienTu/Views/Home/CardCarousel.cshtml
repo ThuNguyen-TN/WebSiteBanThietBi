@@ -16,7 +16,7 @@
                                     <img class="card-img-top rounded border-primary" src="/images/products/@item.Value.HinhAnh" height="80%">
                                     <div class="card-body justify-content-center align-items-center">
                                         <h5 class="card-title">@item.Value.Ten</h5>
-                                        <p class="card-text">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>
+                                        <p class="card-text text-danger">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>
                                         <a class="btn btn-primary" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Value.MaMh">Chọn mua</a>
                                     </div>
                                 </div>

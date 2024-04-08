@@ -22,9 +22,18 @@ namespace WebsiteThietBiDienTu.Controllers
         }
 
         // GET: Tintucs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             return View(await _context.Tintuc.ToListAsync());
+            //var data = from p in _context.Tintuc.FirstOrDefault(p => p.MaTin)
+            //           select p;
+
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    data = data.Where(p => p.TieuDe.Contains(searchString));
+            //}
+
+            //return View(data);
         }
 
         // GET: Tintucs/Details/5
