@@ -18,6 +18,18 @@
             console.error(err.stack);
         });
     </script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#txtTen'), {
+                // toolbar: [ 'heading', '|', 'bold', 'italic', 'link' ]
+            })
+            .then(editor => {
+                window.editor = editor;
+            })
+            .catch(err => {
+                console.error(err.stack);
+            });
+    </script>
 }
 <h1>Chỉnh sửa</h1>
 
@@ -30,7 +42,7 @@
             <input type="hidden" asp-for="MaMh" />
             <div class="form-group">
                 <label class="control-label">Tên sản phẩm</label>
-                <input asp-for="Ten" class="form-control" />
+                <textarea id="txtTen" asp-for="Ten" class="form-control" rows="4"></textarea>
                 <span asp-validation-for="Ten" class="text-danger"></span>
             </div>
             <div class="form-group">

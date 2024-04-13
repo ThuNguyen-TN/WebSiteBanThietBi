@@ -17,30 +17,6 @@
             @Html.DisplayFor(model => model.Ngay)
         </dd>
         <dt class="col-sm-2">
-            Tên sản phẩm
-        </dt>
-        <dd class="col-sm-10">
-            @ViewBag.cthd.MaMhNavigation.Ten
-        </dd>
-        <dt class="col-sm-2">
-            Đơn giá
-        </dt>
-        <dd class="col-sm-10">
-            @ViewBag.cthd.DonGia
-        </dd>
-        <dt class="col-sm-2">
-            Đơn giá
-        </dt>
-        <dd class="col-sm-10">
-            @ViewBag.cthd.SoLuong
-        </dd>
-        <dt class="col-sm-2">
-            Tổng Tiền
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TongTien)
-        </dd>
-        <dt class="col-sm-2">
             Tên Khách Hàng
         </dt>
         <dd class="col-sm-10">
@@ -60,6 +36,82 @@
         </dd>
     </dl>
 </div>
+
+
+<h1 class="text-center">Thông tin sản phẩm</h1>
+<table class="table mx-auto bg-light">
+    <thead>
+        <tr>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Đơn giá
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Thành tiền
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int tongtien = 0;
+        }
+        @foreach (var item in @ViewBag.cthd)
+        {
+
+            tongtien += item.DonGia * item.SoLuong;
+        <tr>
+            <td>@item.MaMhNavigation.Ten</td>
+            <td><img src="/images/products/@item.MaMhNavigation.HinhAnh" class="img-thumbnail" width="20%" /></td>
+            <td>@item.DonGia</td>
+            <td>@item.SoLuong</td>
+            <td>
+                @item.MaHdNavigation.TongTien
+            </td>
+        </tr>
+
+
+        }
+        <tr></tr>
+        <tr>
+            <td class="text-center fw-bold fs-3">Tổng tiền sản phẩm: @tongtien</td>
+        </tr>
+
+        @*<tr>
+            <td>
+                @ViewBag.cthd.MaMhNavigation.Ten
+            </td>
+            <td>
+                <img src="/images/products/@ViewBag.cthd.MaMhNavigation.HinhAnh" class="img-thumbnail" width="20%"/>
+            </td>
+            <td>
+                @ViewBag.cthd.DonGia
+            </td>
+            <td>
+                @ViewBag.cthd.SoLuong
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.TongTien)
+            </td>
+        </tr>*@
+
+    </tbody>
+</table>
+
+<div class="container">
+    <div class="row">
+
+    </div>
+</div>
+<hr />
 <div class="mx-auto">
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
 </div>

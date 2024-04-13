@@ -1,6 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<div>San pham quy khach vua chon da het hang.Vui long lua chon san pham khac</div>
+﻿
+@model WebsiteThietBiDienTu.Models.Sanpham;
+
+<div class="container px-4 px-lg-5 my-5">
+    <div class="row gx-4 gx-lg-5 align-items-center">
+        <div class="col-md-4">
+            <img class="card-img-top mb-5 mb-md-0 img-thumbnail" height="150px" src="/images/products/@Model.HinhAnh" alt="..." />
+        </div>
+        <div class="col-md-6">
+            <div class="small mb-1 fw-bold fs-2">Danh mục sản phẩm: @Model.MaDmNavigation.Ten</div>
+            <h1 class="display-5 fw-bolder">@Model.Ten</h1>
+            <div class="fs-5 mb-2">
+                @if (Model.GiaBan != Model.GiaGoc)
+                {
+
+                    <span class="text-muted text-decoration-line-through">@Model.GiaGoc.ToString("n0").Replace(",", ".") VND</span>
+                    <span class="text-danger fw-bolder">@Model.GiaBan.ToString("n0").Replace(",", ".") VND</span>
+                }
+                else
+                {
+                    <span class="text-danger fw-bolder">Giá: @Model.GiaBan.ToString("n0").Replace(",", ".") VND</span>
+                }
+            </div>
+            <div class="text-danger fw-bold">HẾT HÀNG</div>
+            <p class="lead">@Html.Raw(Model.MoTa)</p>
+            <div class="d-flex">
+
+                <div class="text-center">
+                    <a class="btn btn-outline-primary bg-primary text-white mt-auto">
+                        <i class="bi-cart-fill me-1"></i>
+                        Chọn Mua
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+

@@ -291,9 +291,6 @@ namespace WebsiteThietBiDienTu.Controllers
         {
             if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(matkhau))
             {
-                // Hiển thị một thông báo lỗi cho người dùng
-                ModelState.AddModelError(string.Empty, "Email và mật khẩu là bắt buộc.");
-
                 // Hoặc redirect đến trang login với thông báo lỗi
                 return RedirectToAction(nameof(Login));
             }
@@ -431,9 +428,21 @@ namespace WebsiteThietBiDienTu.Controllers
         {
             int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
             var lstDiaChi = _context.Diachi.FirstOrDefault(d => d.MaKh == makh);
-            
-            ViewBag.hoadon = _context.Hoadon.Where(h => h.MaKh == makh).Include(m=>m.MaKhNavigation);
-            ViewBag.cthoadon = _context.Cthoadon.Where(h => h.MaHdNavigation.MaKh == makh).Include(m=>m.MaHdNavigation).Include(m=>m.MaMhNavigation);
+            //var order = _context.Hoadon.FirstOrDefault(hd => hd.MaKh == makh);
+            //if (order != null || order.TrangThai == "Chờ xác nhận")
+            //{
+            //    var cthoadons = _context.Cthoadon.Where(ct => ct.MaHd == order.MaHd).ToList();
+            //    _context.Cthoadon.RemoveRange(cthoadons);
+            //    _context.SaveChanges();
+
+            //    // Sau đó mới xóa hóa đơn chính
+            //    _context.Hoadon.Remove(order);
+            //    _context.SaveChanges();
+            //}
+
+            ViewBag.hoadon = _context.Hoadon.Where(h => h.MaKh == makh).Include(m=>m.MaKhNavigation).ToList();
+            ViewBag.cthoadon = _context.Cthoadon.Where(h => h.MaHdNavigation.MaKh == makh).Include(m=>m.MaHdNavigation).Include(m=>m.MaMhNavigation).ToList();
+           
             GetInfo();
             return View(lstDiaChi);
 
@@ -488,10 +497,28 @@ namespace WebsiteThietBiDienTu.Controllers
             GetInfo();
             return RedirectToAction(nameof(Customer));
         }
-        public IActionResult OutOfStock()
+        //public IActionResult OutOfStock()
+        //{
+        //    GetInfo();
+        //    return View();
+        //}
+        public async Task<IActionResult> OutOfStock(int? id)
         {
             GetInfo();
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var sanpham = await _context.Sanpham
+                .Include(s => s.MaDmNavigation)
+                .FirstOrDefaultAsync(m => m.MaMh == id);
+            if (sanpham == null)
+            {
+                return NotFound();
+            }
+           
+            return View(sanpham);
         }
 
         public async Task<IActionResult> TinTuc(int? id)

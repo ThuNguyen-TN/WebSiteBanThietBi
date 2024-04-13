@@ -1,57 +1,92 @@
 ﻿
 @model WebsiteThietBiDienTu.Models.Diachi
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="row gx-4 gx-lg-5 align-items-center justify-content-center">
-            <div class="col-md-6">
-                <p class="lead">Họ và Tên: @ViewBag.khachhang.Ten</p>
-                <p class="lead">Email: @ViewBag.khachhang.Email</p>
-                <p class="lead">Điện Thoại: @ViewBag.khachhang.DienThoai</p>
-                @{
-                    string tmp = Model.DiaChi1 + ", xã " + Model.PhuongXa + ", huyện " + Model.QuanHuyen + ", tỉnh " + Model.TinhThanh;
-                    <p class="lead">Địa Chỉ: @tmp</p>
-                }
-                <div class="d-flex">
-
-                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="EditCustomer">Chỉnh Sửa Thông Tin</a></div>
-                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="ChangeAddress" asp-controller="Home">Đổi Địa Chỉ</a></div>
-                    <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="Logout">Đăng Xuất</a></div>
-
-                </div>
-            </div>          
-               <h3 class="text-center py-5">Đơn Hàng Đã Đặt</h3>
-                <div class="container">
-                    <div class="row">
-                        @foreach (var order in ViewBag.cthoadon)
-                        {
-                            <div class="col-md-12">
-                                <div class="card mb-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-2">
-                                            <img src="/images/products/@order.MaMhNavigation.HinhAnh" class="img-fluid rounded-start" alt="...">
-                                        </div>
-                                        <div class="col-md-8 ml-5">
-                                            <div class="card-body justify-content-center">
-                                                <h5 class="card-title">Mã hóa đơn: @order.MaCthd</h5>
-                                                <p class="card-text">Tên Sản Phẩm: @order.MaMhNavigation.Ten</p>
-                                                <p class="card-text">Ngày Đặt Hàng: @order.MaHdNavigation.Ngay</p>
-                                                <p class="card-text">Đơn Giá: @order.DonGia.ToString("n0").Replace(",", ".") VNĐ</p>
-                                                <p class="card-text">Số Lượng: @order.SoLuong</p>
-                                                <p class="card-text">Tổng tiền: @order.ThanhTien.ToString("n0").Replace(",", ".") VNĐ</p>
-                                                <p class="card-text">Tình Trạng Đơn Hàng: @order.MaHdNavigation.TrangThai</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+@*@section Scripts {
+        <script>
+            function cancelOrder(orderId) {
+                if (confirm("Bạn có chắc muốn hủy đơn hàng này không?")) {
+                    // Gửi yêu cầu hủy đơn hàng với orderId đến controller bằng AJAX
+                    $.ajax({
+                        type: "POST",
+                        url: "/Order/CancelOrder",
+                        data: { orderId: orderId },
+                        success: function (response) {
+                            if (response.success) {
+                                alert("Đã hủy đơn hàng thành công.");
+                                location.reload(); // Reload trang để cập nhật danh sách đơn hàng
+                            } else {
+                                alert(response.message); // Hiển thị thông báo lỗi nếu có
+                            }
+                        },
+                        error: function () {
+                            alert("Có lỗi xảy ra khi hủy đơn hàng.");
                         }
+                    });
+                }
+            }
+        </script>
+    }*@
+<div class="container px-4 px-lg-5 my-5">
+    <div class="row gx-4 gx-lg-5 align-items-center justify-content-center">
+        <div class="col-md-6">
+            <p class="lead">Họ và Tên: @ViewBag.khachhang.Ten</p>
+            <p class="lead">Email: @ViewBag.khachhang.Email</p>
+            <p class="lead">Điện Thoại: @ViewBag.khachhang.DienThoai</p>
+            @{
+                string tmp = Model.DiaChi1 + ", xã " + Model.PhuongXa + ", huyện " + Model.QuanHuyen + ", tỉnh " + Model.TinhThanh;
+                <p class="lead">Địa Chỉ: @tmp</p>
+            }
+            <div class="d-flex">
+
+                <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="EditCustomer">Chỉnh Sửa Thông Tin</a></div>
+                <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="ChangeAddress" asp-controller="Home">Đổi Địa Chỉ</a></div>
+                <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="Logout">Đăng Xuất</a></div>
+
+            </div>
+        </div>
+        <h3 class="text-center py-5">Đơn Hàng Đã Đặt</h3>
+        <div class="container">
+            <div class="row">
+                @foreach (var order in ViewBag.cthoadon)
+                {
+                <div class="col-md-12">
+                    <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-2">
+                    <img src="/images/products/@order.MaMhNavigation.HinhAnh" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8 ml-5">
+                    <div class="card-body justify-content-center">
+                        <h5 class="card-title">Mã hóa đơn: @order.MaCthd</h5>
+                        <p class="card-text">Tên Sản Phẩm: @Html.Raw(@order.MaMhNavigation.Ten)</p>
+                        <p class="card-text">Ngày Đặt Hàng: @order.MaHdNavigation.Ngay</p>
+                        <p class="card-text">Đơn Giá: @order.DonGia.ToString("n0").Replace(",", ".") VNĐ</p>
+                        <p class="card-text">Số Lượng: @order.SoLuong</p>
+                        <p class="card-text">Tổng tiền: @order.ThanhTien.ToString("n0").Replace(",", ".") VNĐ</p>
+                        @if (@order.MaHdNavigation.TrangThai == " " || @order.MaHdNavigation.TrangThai == null)
+                        {
+                            <p class="card-text">Tình trạng đơn hàng: Chưa xác nhận</p>
+                        }
+                        else
+                        {
+                            <p class="card-text">Tình Trạng Đơn Hàng: @order.MaHdNavigation.TrangThai</p>
+                        }
+
+
+
                     </div>
                 </div>
-                <div class="col-md-8">
-                </div>      
+                <div class="col-md-2">
+
+                </div>
+            </div>
+        </div>
+                </div>
+
+                }
+            </div>
+        </div>
+        <div class="col-md-8">
         </div>
     </div>
+</div>
 

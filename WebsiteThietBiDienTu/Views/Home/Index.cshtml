@@ -33,57 +33,122 @@
 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center bg-light">
     @foreach (var item in Model)
     {
+
         @if (item.GiaBan == item.GiaGoc)
         {
-            <div class="col mb-5">
-                <div class="card h-100 border border-primary shadow bg-light">
-                    <!-- Sale badge-->
-                    @*@if (item.GiaGoc > item.GiaBan)
-                        {
-                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
-                        }*@
-                    <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
-                        <img class="card-img-top rounded border-primary" src="/images/products/@item.HinhAnh" height="80%" />
-                    </a>
-
-                    <!-- Product image-->
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh" class="text-decoration-none">
-                                <h5 class="fw-bolder">@item.Ten</h5>
-                            </a>
-                            <!-- Product reviews-->
-                            @*<div class="d-flex justify-content-center small text-warning mb-2">
-                                    Lượt mua: @item.LuotMua
-                                </div>*@
-                            <!-- Product price-->
-                            @if (item.GiaBan != item.GiaGoc)
+            @if (item.SoLuong > 0)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100 border border-primary shadow bg-light">
+                        <!-- Sale badge-->
+                        @*@if (item.GiaGoc > item.GiaBan)
                             {
-                                <div>
-                                    <span class="text-muted text-decoration-line-through">@item.GiaGoc.ToString("n0").Replace(",", ".") VNĐ</span>
-                                </div>
-                                <div>
+                                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
+                            }*@
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
+                            <img class="card-img-top rounded border-primary" src="/images/products/@item.HinhAnh" height="80%" />
+                        </a>
+
+                        <!-- Product image-->
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh" class="text-decoration-none">
+                                    <h5 class="fw-bolder">@Html.Raw(@item.Ten)</h5>
+                                </a>
+                                <!-- Product reviews-->
+                                @*<div class="d-flex justify-content-center small text-warning mb-2">
+                                        Lượt mua: @item.LuotMua
+                                    </div>*@
+                                <!-- Product price-->
+                                @if (item.GiaBan != item.GiaGoc)
+                                {
+                                    <div>
+                                        <span class="text-muted text-decoration-line-through">@item.GiaGoc.ToString("n0").Replace(",", ".") VNĐ</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-danger fw-bolder">@item.GiaBan.ToString("n0").Replace(",", ".") VNĐ</span>
+                                    </div>
+
+                                }
+                                else
+                                {
                                     <span class="text-danger fw-bolder">@item.GiaBan.ToString("n0").Replace(",", ".") VNĐ</span>
-                                </div>
+                                }
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-primary bg-primary text-white mt-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.MaMh">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Chọn Mua
+                                </a>
 
-                            }
-                            else
-                            {
-                                <span class="text-danger fw-bolder">@item.GiaBan.ToString("n0").Replace(",", ".") VNĐ</span>
-                            }
+                            </div>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.MaMh">Chọn Mua</a></div>
+                </div>
+            }
+            else
+            {
+                <div class="col mb-5">
+                    <div class="card h-100 border border-primary shadow bg-light">
+                        <!-- Sale badge-->
+                        @*@if (item.GiaGoc > item.GiaBan)
+                            {
+                                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
+                            }*@
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MaMh">
+                            <img class="card-img-top rounded border-primary" src="/images/products/@item.HinhAnh" height="80%" />
+                        </a>
+
+                        <!-- Product image-->
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <a asp-controller="Home" asp-action="OutOfStock" asp-route-id="@item.MaMh" class="text-decoration-none">
+                                    <h5 class="fw-bolder">@item.Ten</h5>
+                                </a>
+                                <!-- Product reviews-->
+                                @*<div class="d-flex justify-content-center small text-warning mb-2">
+                                        Lượt mua: @item.LuotMua
+                                    </div>*@
+                                <!-- Product price-->
+                                @if (item.GiaBan != item.GiaGoc)
+                                {
+                                    <div>
+                                        <span class="text-muted text-decoration-line-through">@item.GiaGoc.ToString("n0").Replace(",", ".") VNĐ</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-danger fw-bolder">@item.GiaBan.ToString("n0").Replace(",", ".") VNĐ</span>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <span class="text-danger fw-bolder">@item.GiaBan.ToString("n0").Replace(",", ".") VNĐ</span>
+                                }
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <a class="btn btn-outline-primary bg-primary text-white mt-auto opacity-75">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Chọn Mua
+                                </a>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+            
         }
-
-    }
+ }
 
 </div>
 <div class="container">

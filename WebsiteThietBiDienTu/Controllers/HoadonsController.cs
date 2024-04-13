@@ -43,7 +43,13 @@ namespace WebsiteThietBiDienTu.Controllers
             {
                 return NotFound();
             }
-            ViewBag.cthd =await _context.Cthoadon.Where(cthd => cthd.MaHdNavigation.MaHd == id).Include(hd => hd.MaHdNavigation).Include(mh => mh.MaMhNavigation).Include(kh => kh.MaHdNavigation.MaKhNavigation).FirstOrDefaultAsync();
+            //ViewBag.cthd =await _context.Cthoadon.Where(cthd => cthd.MaHdNavigation.MaHd == id).Include(hd => hd.MaHdNavigation).Include(mh => mh.MaMhNavigation).Include(kh => kh.MaHdNavigation.MaKhNavigation).FirstOrDefaultAsync();
+            ViewBag.cthd = await _context.Cthoadon
+                            .Where(cthd => cthd.MaHdNavigation.MaHd == id)
+                            .Include(hd => hd.MaHdNavigation)
+                            .Include(mh => mh.MaMhNavigation)
+                            .Include(kh => kh.MaHdNavigation.MaKhNavigation)
+                            .ToListAsync();
             return View(hoadon);
         }
 

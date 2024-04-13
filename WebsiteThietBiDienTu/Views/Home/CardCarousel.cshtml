@@ -7,20 +7,67 @@
             @foreach (var group in Model.Where(x => x.GiaBan != x.GiaGoc).Select((value, index) => new { Value = value, Index = index }).GroupBy(x => x.Index / 3))
 
             {
+
                 <div class="carousel-item @if (group.Key == 0) { <text>active</text> } bg-light">
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         @foreach (var item in group)
                         {
-                            <div class="col-4 col-xs-6">
-                                <div class="card" style="width: 15rem; height:100%;">
-                                    <img class="card-img-top rounded border-primary" src="/images/products/@item.Value.HinhAnh" height="80%">
-                                    <div class="card-body justify-content-center align-items-center">
-                                        <h5 class="card-title">@item.Value.Ten</h5>
-                                        <p class="card-text text-danger">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>
-                                        <a class="btn btn-primary" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Value.MaMh">Chọn mua</a>
+                            @if (item.Value.SoLuong > 0)
+                            {
+                                <div class="col-4 col-xs-6">
+                                    <div class="card" style="width: 15rem; height:100%;">
+                                        <a asp-action="Details" asp-controller="Home" class="text-decoration-none" asp-route-id="@item.Value.MaMh">
+                                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
+                                            <img class="card-img-top rounded border-primary" src="/images/products/@item.Value.HinhAnh" height="80%">
+                                        </a>
+
+                                        <div class="card-body justify-content-center align-items-center">
+                                            <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Value.MaMh">
+                                                <h5 class="card-title">@Html.Raw(@item.Value.Ten)</h5>
+                                            </a>
+                                            <p class="card-text text-danger fw-bold">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>
+
+                                            @*<a class="btn btn-primary d-block mx-auto" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Value.MaMh">
+                <i class="bi-cart-fill me-1"></i>
+                Chọn mua
+            </a>*@
+                                        </div>
+                                        <div class="my-auto">
+                                            <a class="btn btn-primary d-block mx-auto p-md-2" asp-action="AddToCart" asp-controller="Home" asp-route-id="@item.Value.MaMh">
+                                                <i class="bi-cart-fill me-1"></i>
+                                                Chọn mua
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-4 col-xs-6">
+                                    <div class="card" style="width: 15rem; height:100%;">
+                                        <a asp-action="OutOfStock" asp-controller="Home" class="text-decoration-none" asp-route-id="@item.Value.MaMh">
+                                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">GIẢM GIÁ</div>
+                                            <img class="card-img-top rounded border-primary" src="/images/products/@item.Value.HinhAnh" height="80%">
+                                        </a>
+
+                                        <div class="card-body justify-content-center align-items-center">
+                                            <a asp-action="OutOfStock" asp-controller="Home" asp-route-id="@item.Value.MaMh" class="text-decoration-none">
+                                                <h5 class="card-title">@Html.Raw(@item.Value.Ten)</h5>
+                                            </a>
+
+                                            <p class="card-text text-danger fw-bold">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>
+                                            <div class="my-auto">
+                                                <a class="btn btn-primary d-block mx-auto p-md-2">
+                                                    <i class="bi-cart-fill me-1"></i>
+                                                    Chọn mua
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
+
                         }
                     </div>
                 </div>

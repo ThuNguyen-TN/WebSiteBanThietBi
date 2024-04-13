@@ -108,7 +108,7 @@
                         <td>@(stt++)</td>
                         <td>
                             <img src="~/images/products/@(i.SanPham.HinhAnh)" class="img-thumbnail" width="50" />
-                            @(i.SanPham.Ten)
+                            @Html.Raw(@i.SanPham.Ten)
                         </td>
                         <td>
                             @(i.SanPham.GiaBan.ToString("n0"))VND

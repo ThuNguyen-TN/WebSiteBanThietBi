@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DANH MỤC SẢN PHẨM</h6>
+                <h6 class="m-0 font-weight-bold text-primary">TÁT CẢ SẢN PHẨM</h6>
             </div>
             <div class="card-body">
                 <form class="py-auto mx-auto" asp-action="Index" method="get">
@@ -71,7 +71,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Ten)
+                                        @Html.Raw(item.Ten)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.GiaGoc)
