@@ -1,30 +1,6 @@
 ﻿
 @model WebsiteThietBiDienTu.Models.Diachi
-@*@section Scripts {
-        <script>
-            function cancelOrder(orderId) {
-                if (confirm("Bạn có chắc muốn hủy đơn hàng này không?")) {
-                    // Gửi yêu cầu hủy đơn hàng với orderId đến controller bằng AJAX
-                    $.ajax({
-                        type: "POST",
-                        url: "/Order/CancelOrder",
-                        data: { orderId: orderId },
-                        success: function (response) {
-                            if (response.success) {
-                                alert("Đã hủy đơn hàng thành công.");
-                                location.reload(); // Reload trang để cập nhật danh sách đơn hàng
-                            } else {
-                                alert(response.message); // Hiển thị thông báo lỗi nếu có
-                            }
-                        },
-                        error: function () {
-                            alert("Có lỗi xảy ra khi hủy đơn hàng.");
-                        }
-                    });
-                }
-            }
-        </script>
-    }*@
+
 <div class="container px-4 px-lg-5 my-5">
     <div class="row gx-4 gx-lg-5 align-items-center justify-content-center">
         <div class="col-md-6">
@@ -38,8 +14,8 @@
             <div class="d-flex">
 
                 <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="EditCustomer">Chỉnh Sửa Thông Tin</a></div>
-                <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="ChangeAddress" asp-controller="Home">Đổi Địa Chỉ</a></div>
-                <div class="text-center"><a class="btn btn-outline-primary bg-primary text-white mt-auto mx-2" asp-action="Logout">Đăng Xuất</a></div>
+                <div class="text-center"><a class="btn btn-outline-success bg-success text-white mt-auto mx-2" asp-action="ChangeAddress" asp-controller="Home">Đổi Địa Chỉ</a></div>
+                <div class="text-center"><a class="btn btn-outline-danger bg-danger text-white mt-auto mx-2" asp-action="Logout">Đăng Xuất</a></div>
 
             </div>
         </div>
@@ -70,7 +46,7 @@
                         {
                             <p class="card-text">Tình Trạng Đơn Hàng: @order.MaHdNavigation.TrangThai</p>
                         }
-
+                        <p><a class="btn btn-outline-danger bg-danger text-white mt-auto mx-2" asp-action="HuyDonHang" asp-route-id="@order.MaCthd ">Hủy Đơn Hàng</a></p>
 
 
                     </div>

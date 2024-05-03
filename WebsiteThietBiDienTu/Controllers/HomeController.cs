@@ -38,7 +38,7 @@ namespace WebsiteThietBiDienTu.Controllers
             }
             if (HttpContext.Session.GetString("nhanvien") != "")
             {
-                ViewBag.nhanvien = _context.Nhanvien.FirstOrDefault(n => n.Email == HttpContext.Session.GetString("nhanvien"));
+                ViewBag.nhanvien = _context.Nhanvien.FirstOrDefault(n => n.MaNv.ToString() == HttpContext.Session.GetString("nhanvien"));
             }
 
             ViewBag.tintuc = _context.Tintuc.ToList();
@@ -216,6 +216,7 @@ namespace WebsiteThietBiDienTu.Controllers
                 cart.Remove(item);
             }
             SaveCartSession(cart);
+            TempData["success"] = "Xóa sản phẩm khỏi giỏ hàng thành công";
             return RedirectToAction(nameof(ViewCart));
         }
 
@@ -291,15 +292,16 @@ namespace WebsiteThietBiDienTu.Controllers
         {
             if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(matkhau))
             {
+                TempData["error"] = "Email hoặc mật khẩu bị bỏ trống";
                 // Hoặc redirect đến trang login với thông báo lỗi
                 return RedirectToAction(nameof(Login));
-            }
+            } 
             
             var kh = await _context.Khachhang
                 .FirstOrDefaultAsync(m => m.Email == email);
             var nv = await _context.Nhanvien
                 .FirstOrDefaultAsync(m => m.Email == email);
-
+            
             if (kh != null && _passwordHasher.VerifyHashedPassword(kh, kh.MatKhau, matkhau) == PasswordVerificationResult.Success)
             {
                 HttpContext.Session.SetString("khachhang", kh.MaKh.ToString());
@@ -307,10 +309,13 @@ namespace WebsiteThietBiDienTu.Controllers
             }
             else if (nv != null && _nvpasswordHasher.VerifyHashedPassword(nv, nv.MatKhau, matkhau) == PasswordVerificationResult.Success)
             {
-                HttpContext.Session.SetString("nhanvien", email);
+                HttpContext.Session.SetString("nhanvien", nv.MaNv.ToString());
                 return RedirectToAction("Index", "Admin");
             }
+          
+            
             //khong ton tai khach hang chuyen ve login
+            TempData["error"] = "Sai mật khẩu hoặc email";
             return RedirectToAction(nameof(Login));
         }
         public IActionResult Logout()
@@ -447,6 +452,34 @@ namespace WebsiteThietBiDienTu.Controllers
             return View(lstDiaChi);
 
         }
+        public IActionResult HuyDonHang(int id)
+        {
+            var donHang = _context.Hoadon.FirstOrDefault(d => d.MaHd == id);
+            var cthoadons = _context.Cthoadon.Where(ct => ct.MaHd == donHang.MaHd).ToList();
+
+            if (donHang == null)
+            {
+                // Trả về một trang thông báo lỗi nếu không tìm thấy đơn hàng
+                return NotFound();
+            }
+
+            // Thực hiện hủy đơn hàng, ví dụ cập nhật trạng thái đơn hàng thành "Đã Hủy"
+            //donHang.TrangThai = "Đã hủy đơn hàng";
+            //_context.Remove(donHang);
+
+            _context.Cthoadon.RemoveRange(cthoadons);
+            _context.SaveChanges();
+
+            // Sau đó mới xóa hóa đơn chính
+            _context.Hoadon.Remove(donHang);
+            _context.SaveChanges();
+
+            // Lưu các thay đổi vào cơ sở dữ liệu
+            //_context.SaveChanges();
+
+            // Chuyển hướng người dùng đến trang thông báo thành công
+            return RedirectToAction("Customer");
+        }
         public async Task<IActionResult> EditCustomer()
         {
             GetInfo();
@@ -562,5 +595,6 @@ namespace WebsiteThietBiDienTu.Controllers
             GetInfo();
             return View();
         }
+       
     }
 }

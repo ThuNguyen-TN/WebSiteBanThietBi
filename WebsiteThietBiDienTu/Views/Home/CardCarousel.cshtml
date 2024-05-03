@@ -22,7 +22,7 @@
                                         </a>
 
                                         <div class="card-body justify-content-center align-items-center">
-                                            <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Value.MaMh">
+                                            <a asp-action="Details" asp-controller="Home" asp-route-id="@item.Value.MaMh" class="text-decoration-none">
                                                 <h5 class="card-title">@Html.Raw(@item.Value.Ten)</h5>
                                             </a>
                                             <p class="card-text text-danger fw-bold">Giá bán: @(item.Value.GiaBan.ToString("n0").Replace(",", ".")) VNĐ</p>

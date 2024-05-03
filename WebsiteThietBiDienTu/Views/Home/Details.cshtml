@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-6">
                 <div class="small mb-1 fw-bold fs-2">Danh mục sản phẩm: @Model.MaDmNavigation.Ten</div>
-                <h1 class="display-5 fw-bolder">@Model.Ten</h1>
+                <h1 class="display-5 fw-bolder">@Html.Raw(@Model.Ten)</h1>
                 <div class="fs-5 mb-2">
                     @if (Model.GiaBan != Model.GiaGoc)
                     {

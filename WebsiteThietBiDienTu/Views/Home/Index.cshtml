@@ -110,7 +110,7 @@
                             <div class="text-center">
                                 <!-- Product name-->
                                 <a asp-controller="Home" asp-action="OutOfStock" asp-route-id="@item.MaMh" class="text-decoration-none">
-                                    <h5 class="fw-bolder">@item.Ten</h5>
+                                    <h5 class="fw-bolder">@Html.Raw(@item.Ten)</h5>
                                 </a>
                                 <!-- Product reviews-->
                                 @*<div class="d-flex justify-content-center small text-warning mb-2">

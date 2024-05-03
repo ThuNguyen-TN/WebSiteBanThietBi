@@ -25,41 +25,18 @@ namespace WebsiteThietBiDienTu.Controllers
         public async Task<IActionResult> Index(int pg=1,string sortOrder="",string searchString="")
         {
 
-            //var applicationDbContext = _context.Sanpham.Include(s => s.MaDmNavigation);
-
-
-            //return View(await applicationDbContext.ToArrayAsync());
-
-            //var query = _context.Sanpham.Include(s => s.MaDmNavigation);
-
-            //const int pageSize = 8;
-            //if (pg < 1)
-            //    pg = 1;
-
-            //var pager = new Pager(query.Count(), pg, pageSize);
-            //int recSkip = (pg - 1) * pageSize;
-            //var data = await query.Skip(recSkip).Take(pager.PageSize).ToListAsync();
-
+          
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["GiaSortParm"] = sortOrder == "Gia" ? "gia_desc" : "Gia";
             ViewData["QuantitySortParm"] = sortOrder == "SoLuong" ? "soluong_desc" : "SoLuong";
             var data = from p in _context.Sanpham.Include(p => p.MaDmNavigation)
-                       select p;
-
-            //const int pageSize = 8;
-            //if (pg < 1)
-            //    pg = 1;
-
-            //var pager = new Pager(data.Count(), pg, pageSize);
-            //int recSkip = (pg - 1) * pageSize;
+                       select p; 
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 data = data.Where(p => p.Ten.Contains(searchString));
             }
-            //if(searchString != null)
-            //{
-            //    pg = 1;
-            //}
+           
             switch (sortOrder)
             {
                 case "name_desc":
@@ -83,7 +60,6 @@ namespace WebsiteThietBiDienTu.Controllers
             }
 
             return View(data);
-
 
         }
 

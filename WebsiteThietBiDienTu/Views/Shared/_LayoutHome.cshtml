@@ -79,14 +79,6 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav justify-content-center mx-auto">
                             <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" asp-action="Index" asp-controller="Home">Trang Chủ</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark fw-bold link-primary" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sản Phẩm</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    @foreach (var i in (List<Danhmuc>)ViewBag.danhmuc)
-                                    {
-                        <li><a class="drop-item" asp-action="CategoryName" asp-route-id="@(i.MaDm)">@i.Ten</a></li>}
-                                </ul>
-                            </li>
                             <li class="nav-item text-dark"><a class="nav-link text-dark fw-bold link-primary" asp-action="About">Giới thiệu</a></li>
                             <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" asp-action="TrangTinTuc">Tin Tức</a></li>
                             <li class="nav-item"><a class="nav-link text-dark fw-bold link-primary" aria-current="page" asp-action="LienHe">Liên Hệ</a></li>
@@ -108,6 +100,7 @@
 
     <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
+            @Html.Partial("_NotificationPartical")
             @RenderBody()
         </div>
     </section>

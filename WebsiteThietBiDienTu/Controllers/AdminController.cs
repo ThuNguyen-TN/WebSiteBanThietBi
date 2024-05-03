@@ -39,5 +39,6 @@ namespace WebsiteThietBiDienTu.Controllers
             GetInfo();
             return _context.Nhanvien.Any(e => e.MaNv == id);
         }
+       
     }
 }
