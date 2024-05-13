@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WebsiteThietBiDienTu.Models.Khachhang
+@{
     ViewData["Title"] = "Login";
 }
 <div class="row">
@@ -15,13 +16,16 @@
                 <div class="my-3">
                     <label>Mat khau</label>
                     <input type="password" name="matkhau" class="form-control" />
+                    <span asp-validation-for="MatKhau" class="text-danger"></span>
                 </div>
                 <div class="my-3">
                     <label>Họ tên</label>
-                    <input type="text" name="hoten" class="form-control" />
+                    <input type="text" name="hoten" class="form-control" required=""/>
+                    <span asp-validation-for="Ten" class="text-danger"></span>
+                    
                 </div>
                 <div class="my-3">
-                    <label>Số điện thoại</label>
+                    <label>Số điện thoại</label>22
                     <input type="text" name="dienthoai" class="form-control" />
                 </div>
                 <div class="my-3">

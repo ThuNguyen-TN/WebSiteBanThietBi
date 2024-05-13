@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebsiteThietBiDienTu.Models.Hoadon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-info">Thống kê hóa đơn theo ngày</h1>
+<label>Ngày bắt đầu: @ViewData["ngaybatdau"]</label>
+<br />
+<label>Ngày kết thúc: @ViewData["ngayketthuc"]</label>
+<br />
+<label>Tổng tiền trong khoảng thời gian trên: @ViewData["tongtien"]</label>
+<br />
+<a asp-action="ThongKe">Back</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaKhNavigation.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaKhNavigation.DienThoai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaHd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaKhNavigation.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaKhNavigation.DienThoai)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+

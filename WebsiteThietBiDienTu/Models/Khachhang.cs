@@ -21,13 +21,14 @@ namespace WebsiteThietBiDienTu.Models
         [Key]
         [Column("MaKH")]
         public int MaKh { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập tên")]
         [StringLength(100)]
-        public string Ten { get; set; }
+        public string Ten { get; set; } 
         [StringLength(20)]
         public string DienThoai { get; set; }
         [StringLength(50)]
         public string Email { get; set; }
+
         [StringLength(255)]
         public string MatKhau { get; set; }
 

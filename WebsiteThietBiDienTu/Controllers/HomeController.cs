@@ -28,7 +28,7 @@ namespace WebsiteThietBiDienTu.Controllers
         public void GetInfo()
         {
             ViewData["soluong"] = GetCartItems().Count();
-            
+
 
             ViewBag.danhmuc = _context.Danhmuc.ToList();
 
@@ -42,13 +42,13 @@ namespace WebsiteThietBiDienTu.Controllers
             }
 
             ViewBag.tintuc = _context.Tintuc.ToList();
-            
+
         }
         // GET: Home
         public async Task<IActionResult> Index(string search = "")
         {
             GetInfo();
-         
+
             var data = from p in _context.Sanpham.Include(p => p.MaDmNavigation)
                        select p;
 
@@ -70,6 +70,8 @@ namespace WebsiteThietBiDienTu.Controllers
             return View(await data.ToListAsync());
 
         }
+
+
         public IActionResult SearchResultView()
         {
             GetInfo();
@@ -170,7 +172,7 @@ namespace WebsiteThietBiDienTu.Controllers
 
             //return RedirectToAction(nameof(ViewCart));
             var mathang = await _context.Sanpham.FirstOrDefaultAsync(m => m.MaMh == id);
-            
+
             if (mathang == null)
             {
                 return NotFound("Sản phẩm không tồn tại");
@@ -227,15 +229,15 @@ namespace WebsiteThietBiDienTu.Controllers
             var item = cart.Find(p => p.SanPham.MaMh == id);
             if (item != null)
             {
-                if(quantity <= item.SanPham.SoLuong)
+                if (quantity <= item.SanPham.SoLuong)
                 {
                     item.SoLuong = quantity;
-                    
+
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Sn pham nay chi con lai" + item.SanPham.SoLuong+ "sna pham.Vui long lua chon san pham khac";
-                    
+                    TempData["ErrorMessage"] = "Sản pham nay chi con lai" + item.SanPham.SoLuong + "san pham.Vui long lua chon san pham khac";
+
                 }
             }
             SaveCartSession(cart);
@@ -256,11 +258,14 @@ namespace WebsiteThietBiDienTu.Controllers
             var mk = _context.Khachhang.FirstOrDefault(m => m.MatKhau == matkhau);
             if (nd != null)
             {
-                //               ViewBag.khachhang = _context.Khachhang.FirstOrDefault(k => k.Email == HttpContext.Session.GetString("khachhang"));
+ 
+                ModelState.AddModelError(string.Empty, "Email đã tồn tại.");
+                TempData["error"] = "Email đã tồn tại! Vui lòng đăng nhập vào trang web.";
                 return RedirectToAction(nameof(Register));
             }
             else
             {
+               
                 //lưu thông tin khách hàng;
                 var kh = new Khachhang();
                 kh.Email = email;
@@ -295,13 +300,13 @@ namespace WebsiteThietBiDienTu.Controllers
                 TempData["error"] = "Email hoặc mật khẩu bị bỏ trống";
                 // Hoặc redirect đến trang login với thông báo lỗi
                 return RedirectToAction(nameof(Login));
-            } 
-            
+            }
+
             var kh = await _context.Khachhang
                 .FirstOrDefaultAsync(m => m.Email == email);
             var nv = await _context.Nhanvien
                 .FirstOrDefaultAsync(m => m.Email == email);
-            
+
             if (kh != null && _passwordHasher.VerifyHashedPassword(kh, kh.MatKhau, matkhau) == PasswordVerificationResult.Success)
             {
                 HttpContext.Session.SetString("khachhang", kh.MaKh.ToString());
@@ -312,8 +317,8 @@ namespace WebsiteThietBiDienTu.Controllers
                 HttpContext.Session.SetString("nhanvien", nv.MaNv.ToString());
                 return RedirectToAction("Index", "Admin");
             }
-          
-            
+
+
             //khong ton tai khach hang chuyen ve login
             TempData["error"] = "Sai mật khẩu hoặc email";
             return RedirectToAction(nameof(Login));
@@ -445,9 +450,9 @@ namespace WebsiteThietBiDienTu.Controllers
             //    _context.SaveChanges();
             //}
 
-            ViewBag.hoadon = _context.Hoadon.Where(h => h.MaKh == makh).Include(m=>m.MaKhNavigation).ToList();
-            ViewBag.cthoadon = _context.Cthoadon.Where(h => h.MaHdNavigation.MaKh == makh).Include(m=>m.MaHdNavigation).Include(m=>m.MaMhNavigation).ToList();
-           
+            ViewBag.hoadon = _context.Hoadon.Where(h => h.MaKh == makh).Include(m => m.MaKhNavigation).ToList();
+            ViewBag.cthoadon = _context.Cthoadon.Where(h => h.MaHdNavigation.MaKh == makh).Include(m => m.MaHdNavigation).Include(m => m.MaMhNavigation).ToList();
+
             GetInfo();
             return View(lstDiaChi);
 
@@ -480,6 +485,16 @@ namespace WebsiteThietBiDienTu.Controllers
             // Chuyển hướng người dùng đến trang thông báo thành công
             return RedirectToAction("Customer");
         }
+        public IActionResult DangXuLy(int id)
+        {
+            var xl = _context.Hoadon.FirstOrDefault(x => (x.MaHd == id && x.TrangThai.Equals("Đang xử lý")));
+            if(xl == null)
+            {
+                return NotFound();
+            }
+            
+            return View();
+        }
         public async Task<IActionResult> EditCustomer()
         {
             GetInfo();
@@ -489,7 +504,7 @@ namespace WebsiteThietBiDienTu.Controllers
         public async Task<IActionResult> EditCustomer(int id, string email, string matkhau, string hoten, string sodienthoai)
         {
             var kt = _context.Khachhang.FirstOrDefault(k => k.Email == email && k.MaKh != id && k.MatKhau != null);
-            
+
             if (kt != null)
             {
                 GetInfo();
@@ -550,12 +565,12 @@ namespace WebsiteThietBiDienTu.Controllers
             {
                 return NotFound();
             }
-           
+
             return View(sanpham);
         }
 
         public async Task<IActionResult> TinTuc(int? id)
-        { 
+        {
             GetInfo();
             if (id == null)
             {
@@ -576,15 +591,7 @@ namespace WebsiteThietBiDienTu.Controllers
             GetInfo();
             return View();
         }
-        //public async Task<IActionResult> GetOrderDetail()
-        //{
-        //    int makh = int.Parse(HttpContext.Session.GetString("khachhang"));
-        //    GetInfo();
-        //    var applicationDbContext = _context.Hoadon
-        //        .Where(p => p.MaKh == makh)
-        //        .Include(m => m.MaDcNavigation);
-        //    return View(await applicationDbContext.ToListAsync());
-        //}
+        
         public IActionResult LienHe()
         {
             GetInfo();
@@ -595,6 +602,6 @@ namespace WebsiteThietBiDienTu.Controllers
             GetInfo();
             return View();
         }
-       
+
     }
 }

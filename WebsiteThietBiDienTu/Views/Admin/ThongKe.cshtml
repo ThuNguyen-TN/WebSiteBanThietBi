@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebsiteThietBiDienTu.Models.Hoadon>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="text-info">Thống kê hóa đơn theo ngày</h1>
+<form method="post" style="display: flex; align-items: center; grid-gap: 10px" asp-controller="Admin" asp-action="ThongKeHoaDon">
+    Từ: <input style="display: inline-block" type="date" name="Ngaybatdau" class="form-control " pattern="\d{2}/\d{2}/\d{4}" />
+    Đến: <input style="display: inline-block" type="date" name="Ngayketthuc" class="form-control" pattern="\d{2}/\d{2}/\d{4}" />
+    <input style="display: inline-block" type="submit" value="Xem" class="btn btn-info" />
+</form>
+<h1 class="text-center">Hóa Đơn</h1>
+<table class="table mx-auto">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ngay)
+            </th>
+            <th>
+                Tên Khách Hàng
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                Trạng Thái Đơn Hàng
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.MaKhNavigation)*@
+                Địa Chỉ
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ngay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaKhNavigation.Ten)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTien)
+                </td>
+                @if (item.TrangThai == null || item.TrangThai == "")
+                {
+                    <td>Chờ xác nhận</td>
+                }
+                else
+                {
+                    <td> @Html.DisplayFor(modelItem => item.TrangThai)</td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaDcNavigation.DiaChi1)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

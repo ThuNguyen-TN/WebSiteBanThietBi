@@ -39,6 +39,26 @@ namespace WebsiteThietBiDienTu.Controllers
             GetInfo();
             return _context.Nhanvien.Any(e => e.MaNv == id);
         }
-       
+        
+        [HttpPost]
+        public async Task<IActionResult> ThongKeHoaDon(DateTime Ngaybatdau, DateTime Ngayketthuc)
+        {
+            var lstHD = _context.Hoadon.Include(m => m.MaKhNavigation).Where(d => d.Ngay >= Ngaybatdau && d.Ngay <= Ngayketthuc && d.TrangThai.Equals("Đã giao hàng"));
+            int tongtien = 0;
+            foreach (Hoadon hd in lstHD)
+            {
+                tongtien += hd.TongTien;
+            }
+            ViewData["ngaybatdau"] = Ngaybatdau.Month.ToString() + "/" + Ngaybatdau.Day.ToString() + "/" + Ngaybatdau.Year.ToString();
+            ViewData["ngayketthuc"] = Ngayketthuc.Month.ToString() + "/" + Ngayketthuc.Day.ToString() + "/" + Ngayketthuc.Year.ToString();
+            ViewData["tongtien"] = tongtien.ToString("n0");
+            GetInfo();
+            return View(lstHD);
+        }
+        public async Task<IActionResult> ThongKe()
+        {
+            var applicationDbContext = _context.Hoadon.Include(h => h.MaDcNavigation).Include(h => h.MaKhNavigation);
+            return View(await applicationDbContext.ToListAsync());
+        }
     }
 }
